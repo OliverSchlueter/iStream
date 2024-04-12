@@ -13,10 +13,12 @@ This project is only for educational purposes. It is not intended to be used in 
 - Follow streamers
 - Chat with other users
 
-## Technologies
+## Tech stack
 
-Frontend: HTML, CSS, JavaScript
+Frontend: HTML, CSS, JavaScript, WebRTC
 
-Backend: Java, (PHP)
+Backend: Java, Javalin (HTTP, WS), WebRTC
 
 Database: MySQL
+
+Infrastructure: GitHub, Nginx, Docker, Docker Compose
