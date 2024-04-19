@@ -1,5 +1,6 @@
 plugins {
     id("java")
+    id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 group = "de.itbw18"
@@ -20,6 +21,16 @@ dependencies {
 
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
+}
+
+tasks.shadowJar {
+    archiveClassifier.set("")
+
+    manifest {
+        manifest {
+            attributes["Main-Class"] = "de.itbw18.istream.cmd.Main"
+        }
+    }
 }
 
 tasks.test {
@@ -46,4 +57,10 @@ tasks.register<Copy>("copyFrontendToBackend") {
         println("Copying files to: $rootDir/src/main/resources/frontend")
         file("$rootDir/src/main/resources/frontend").mkdirs()
     }
+}
+
+tasks.compileJava {
+    options.encoding = Charsets.UTF_8.name()
+
+    options.release.set(17)
 }
