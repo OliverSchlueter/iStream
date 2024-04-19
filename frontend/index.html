@@ -6,12 +6,13 @@
 </head>
 <body>
 
-    <button onclick="startCaptureAndSend()">Start livestream</button>
-    <button onclick="receiveData()">Watch livestream</button>
+    <button onclick="startLiveStream()">Start livestream</button>
+    <button onclick="watchLiveStream()">Watch livestream</button>
 
-    <video id="localVideo" autoplay controls width="1500px"></video>
+    <video id="remoteVideo" autoplay controls width="1500px"></video>
 
     <script src="main.js"></script>
+    <script src="livestream/livestream.js"></script>
 </body>
 
 <style>
