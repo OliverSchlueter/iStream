@@ -1,3 +1,3 @@
 # Layout amd architecture
 
-![](assets/img.png)
+![](assets/layout.png)
