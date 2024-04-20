@@ -1,4 +1,6 @@
 package de.itbw18.istream.stream;
 
-public record Stream(String host, String title, String description) {
+import de.itbw18.istream.streamconfig.StreamConfig;
+
+public record Stream(String streamer, StreamConfig streamConfig, long live_since, int amount_viewers) {
 }
