@@ -2,25 +2,33 @@
 
 ## User
 
-id: string (uuid)
-username: string
-email: string
-password: string
-created_at: long (timestamp)
-following: string[] (uuids)
-followers: string[] (uuids)
+- id: string (uuid)
+- username: string
+- email: string
+- password: string
+- created_at: long (timestamp)
+- following: string[] (user ids)
+- followers: string[] (user ids)
 
 ## StreamConfig
 
-user_id: string (uuid)
-title: string
-description: string
-category: string
-tags: string[]
+- user_id: string
+- title: string
+- description: string
+- language: string (country code)
+- category: string
+- tags: string[]
 
-## Chat
+## Message
 
-stream_id: string (a user_id)
-user_id: string (who sent the message)
-message: string
-timestamp: long (time sent)
+- streamer: string (user_id)
+- sender: string (user_id)
+- content: string
+- sent_at: long (timestamp)
+
+## Stream
+
+- streamer: string (user_id)
+- streamConfig: StreamConfig
+- live_since: long (timestamp)
+- amount_viewers: int
