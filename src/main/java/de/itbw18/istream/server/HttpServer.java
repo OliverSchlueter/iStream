@@ -9,9 +9,13 @@ import de.itbw18.istream.helpers.Exclude;
 import de.itbw18.istream.stream.StreamHandler;
 import de.itbw18.istream.stream.chat.ChatHandler;
 import de.itbw18.istream.stream.live.LiveHandler;
+import de.itbw18.istream.streamconfig.StreamConfigHandler;
 import de.itbw18.istream.user.UserHandler;
 import io.javalin.Javalin;
 import io.javalin.config.SizeUnit;
+import io.javalin.http.Context;
+import io.javalin.http.Handler;
+import io.javalin.http.HttpStatus;
 import io.javalin.http.staticfiles.Location;
 import io.javalin.json.JsonMapper;
 import io.javalin.openapi.plugin.OpenApiPlugin;
@@ -97,36 +101,50 @@ public class HttpServer {
                     UserHandler userHandler = new UserHandler();
                     crud("users/{user-id}", userHandler);
 
+                    StreamConfigHandler streamConfigHandler = new StreamConfigHandler();
+                    crud("stream-config/{user-id}", streamConfigHandler);
+
                     StreamHandler streamHandler = new StreamHandler();
                     crud("streams/{user-id}", streamHandler);
 
                     LiveHandler liveHandler = new LiveHandler();
                     ws("streams/{user-id}/live", liveHandler::handle);
-
-                    ws("streams/1/live", liveHandler::handle);
+                    ws("streams/1/live", liveHandler::handle); // TODO: remove (for testing)
 
                     ChatHandler chatHandler = new ChatHandler();
                     ws("streams/{user-id}/chat", chatHandler::handle);
 
                     // not found
-                    get("/*", ctx -> ctx.result("API not found"));
-                    post("/*", ctx -> ctx.result("API not found"));
-                    put("/*", ctx -> ctx.result("API not found"));
-                    delete("/*", ctx -> ctx.result("API not found"));
+                    get("/*", this::apiNotFound);
+                    post("/*", this::apiNotFound);
+                    put("/*", this::apiNotFound);
+                    delete("/*", this::apiNotFound);
                 });
 
-                // fallback for website
-                get("/", ctx -> {
-                    ctx.result(Resource.newClassPathResource("frontend/index.html").getInputStream());
-                    ctx.header("Content-Type", "text/html");
-                });
+                // frontend
+                path("/", () -> {
+                    get("/", ctx -> {
+                        ctx.result(Resource.newClassPathResource("frontend/index.html").getInputStream());
+                        ctx.header("Content-Type", "text/html");
+                    });
 
+                    // not found
+                    get("/*", ctx -> {
+                        ctx.result(Resource.newClassPathResource("frontend/404.html").getInputStream());
+                        ctx.header("Content-Type", "text/html");
+                    });
+                });
             });
         });
     }
 
     public void start(int port) {
         app.start(port);
+    }
+
+    private void apiNotFound(Context ctx) {
+        ctx.result("Not found");
+        ctx.status(HttpStatus.NOT_FOUND);
     }
 
 }
