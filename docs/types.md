@@ -6,13 +6,13 @@
 - username: string
 - email: string
 - password: string
-- created_at: long (timestamp)
+- createdAt: long (timestamp)
 - following: string[] (user ids)
 - followers: string[] (user ids)
 
 ## StreamConfig
 
-- user_id: string
+- userId: string
 - title: string
 - description: string
 - language: string (country code)
@@ -21,14 +21,14 @@
 
 ## Message
 
-- streamer: string (user_id)
-- sender: string (user_id)
+- streamer: string (user id)
+- sender: string (user id)
 - content: string
-- sent_at: long (timestamp)
+- sentAt: long (timestamp)
 
 ## Stream
 
-- streamer: string (user_id)
+- streamer: string (user id)
 - streamConfig: StreamConfig
-- live_since: long (timestamp)
-- amount_viewers: int
+- liveSince: long (timestamp)
+- amountViewers: int

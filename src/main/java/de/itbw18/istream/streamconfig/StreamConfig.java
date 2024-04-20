@@ -1,6 +1,6 @@
 package de.itbw18.istream.streamconfig;
 
-public record StreamConfig(String user_id, String title, String description, Category category, String[] tags, String language) {
+public record StreamConfig(String userId, String title, String description, Category category, String[] tags, String language) {
 
     public enum Category {
         IRL,
