@@ -21,6 +21,7 @@ dependencies {
 
 tasks{
     shadowJar {
+        archiveFileName.set("iStream-${version}.jar")
         archiveClassifier.set("")
 
         manifest {
