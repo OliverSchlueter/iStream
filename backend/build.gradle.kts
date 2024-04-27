@@ -3,9 +3,6 @@ plugins {
     id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
-group = "de.itbw18"
-version = "0.0.1-SNAPSHOT"
-
 dependencies {
     implementation("io.javalin:javalin:6.1.3")
     annotationProcessor("io.javalin.community.openapi:openapi-annotation-processor:6.1.3")
@@ -20,17 +17,6 @@ dependencies {
 }
 
 tasks{
-    shadowJar {
-        archiveFileName.set("iStream-${version}.jar")
-        archiveClassifier.set("")
-
-        manifest {
-            manifest {
-                attributes["Main-Class"] = "de.itbw18.istream.cmd.Main"
-            }
-        }
-    }
-
     test {
         useJUnitPlatform()
     }
@@ -39,28 +25,5 @@ tasks{
         options.encoding = Charsets.UTF_8.name()
 
         options.release.set(17)
-    }
-}
-
-
-tasks.register<Exec>("npmBuild") {
-    workingDir = file("$rootDir/frontend")
-
-    commandLine = if (System.getProperty("os.name").lowercase().contains("win")) {
-        listOf("$rootDir/frontend/build.bat")
-    } else {
-        listOf("bash", "$rootDir/frontend/build.sh")
-    }
-}
-
-tasks.register<Copy>("copyFrontendToBackend") {
-    dependsOn("npmBuild")
-    from("$rootDir/frontend/dist")
-    into("$rootDir/src/main/resources/frontend")
-
-    doLast {
-        println("Copying files from: $rootDir/frontend/dist")
-        println("Copying files to: $rootDir/src/main/resources/frontend")
-        file("$rootDir/src/main/resources/frontend").mkdirs()
     }
 }
