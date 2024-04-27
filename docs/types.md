@@ -15,9 +15,7 @@
 - userId: string
 - title: string
 - description: string
-- language: string (country code)
 - category: string
-- tags: string[]
 
 ## Message
 
