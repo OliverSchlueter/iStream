@@ -25,4 +25,6 @@ Definitions:
 
 ## Roadmap
 
-- 14.07.2023: Product presentation
+- 07.06.2024: Final requirements
+- 28.06.2024: Final product
+- 12.07.2024: Product presentation
