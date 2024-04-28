@@ -1,6 +1,6 @@
 package de.itbw18.istream.cmd;
 
-<import de.itbw18.istream.helpers.database.SQLConnector;
+import de.itbw18.istream.helpers.database.SQLConnector;
 import de.itbw18.istream.helpers.database.SQLiteConnector;
 import de.itbw18.istream.server.HttpServer;
 import de.itbw18.istream.user.UserHandler;

@@ -9,6 +9,8 @@ dependencies {
     implementation("io.javalin.community.openapi:javalin-openapi-plugin:6.1.3")
     implementation("io.javalin.community.openapi:javalin-swagger-plugin:6.1.3")
 
+    implementation("org.xerial:sqlite-jdbc:3.45.3.0")
+
     implementation("org.slf4j:slf4j-simple:2.0.10")
     implementation("com.google.code.gson:gson:2.10.1")
 
@@ -16,7 +18,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter")
 }
 
-tasks{
+tasks {
     test {
         useJUnitPlatform()
     }

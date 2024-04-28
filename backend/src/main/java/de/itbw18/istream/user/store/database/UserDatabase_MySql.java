@@ -20,7 +20,7 @@ public class UserDatabase_MySql implements UserDatabase {
 
     @Override
     public void setup() {
-        if(!db.isConnected()) {
+        if (!db.isConnected()) {
             throw new IllegalStateException("Database is not connected");
         }
     }
@@ -28,8 +28,8 @@ public class UserDatabase_MySql implements UserDatabase {
     private String[] getFollowing(String id) {
         List<String> following = new ArrayList<>();
         try {
-            ResultSet result = db.getConnection().createStatement().executeQuery("SELECT * FROM followers WHERE follower_id = '" + id + "');
-            while(result.next()) {
+            ResultSet result = db.getConnection().createStatement().executeQuery("SELECT * FROM followers WHERE follower_id = '" + id + "'");
+            while (result.next()) {
                 following.add(result.getString("followee_id"));
             }
         } catch (SQLException e) {
@@ -41,8 +41,8 @@ public class UserDatabase_MySql implements UserDatabase {
     private String[] getFollowers(String id) {
         List<String> followers = new ArrayList<>();
         try {
-            ResultSet result = db.getConnection().createStatement().executeQuery("SELECT * FROM followers WHERE followee_id = '" + id + "');
-            while(result.next()) {
+            ResultSet result = db.getConnection().createStatement().executeQuery("SELECT * FROM followers WHERE followee_id = '" + id + "'");
+            while (result.next()) {
                 followers.add(result.getString("follower_id"));
             }
         } catch (SQLException e) {
@@ -59,8 +59,8 @@ public class UserDatabase_MySql implements UserDatabase {
         long createdAt = 0;
 
         try {
-            ResultSet result = db.getConnection().createStatement().executeQuery("SELECT * FROM users WHERE id = '" + id + "');
-            if(result.next()) {
+            ResultSet result = db.getConnection().createStatement().executeQuery("SELECT * FROM users WHERE id = '" + id + "'");
+            if (result.next()) {
                 username = result.getString("username");
                 email = result.getString("email");
                 password = result.getString("password");
@@ -93,8 +93,8 @@ public class UserDatabase_MySql implements UserDatabase {
         long createdAt = 0;
 
         try {
-            ResultSet result = db.getConnection().createStatement().executeQuery("SELECT * FROM users WHERE username = '" + username + "');
-            if(result.next()) {
+            ResultSet result = db.getConnection().createStatement().executeQuery("SELECT * FROM users WHERE username = '" + username + "'");
+            if (result.next()) {
                 id = result.getString("id");
                 email = result.getString("email");
                 password = result.getString("password");
@@ -127,8 +127,8 @@ public class UserDatabase_MySql implements UserDatabase {
         long createdAt = 0;
 
         try {
-            ResultSet result = db.getConnection().createStatement().executeQuery("SELECT * FROM users WHERE email = '" + email + "');
-            if(result.next()) {
+            ResultSet result = db.getConnection().createStatement().executeQuery("SELECT * FROM users WHERE email = '" + email + "'");
+            if (result.next()) {
                 id = result.getString("id");
                 username = result.getString("username");
                 password = result.getString("password");
