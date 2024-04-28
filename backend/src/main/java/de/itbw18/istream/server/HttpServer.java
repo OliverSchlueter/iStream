@@ -9,6 +9,7 @@ import de.itbw18.istream.stream.StreamHandler;
 import de.itbw18.istream.stream.chat.ChatHandler;
 import de.itbw18.istream.stream.live.LiveHandler;
 import de.itbw18.istream.streamconfig.StreamConfigHandler;
+import de.itbw18.istream.user.UserAccessHandler;
 import de.itbw18.istream.user.UserHandler;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
@@ -30,9 +31,11 @@ public class HttpServer {
 
     private Javalin app;
     private UserHandler userHandler;
+    private UserAccessHandler userAccessHandler;
 
-    public HttpServer(UserHandler userHandler) {
+    public HttpServer(UserAccessHandler userAccessHandler, UserHandler userHandler) {
         this.userHandler = userHandler;
+        this.userAccessHandler = userAccessHandler;
 
         init();
     }
@@ -98,6 +101,8 @@ public class HttpServer {
 
             config.router.apiBuilder(() -> {
                 path("api/", () -> {
+                    before("/*", ctx -> userAccessHandler.authenticate(ctx));
+
                     crud("users/{user-id}", userHandler);
 
                     StreamConfigHandler streamConfigHandler = new StreamConfigHandler();
