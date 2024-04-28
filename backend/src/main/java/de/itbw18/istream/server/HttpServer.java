@@ -1,6 +1,5 @@
 package de.itbw18.istream.server;
 
-import com.fasterxml.jackson.databind.node.TextNode;
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
@@ -12,9 +11,7 @@ import de.itbw18.istream.stream.live.LiveHandler;
 import de.itbw18.istream.streamconfig.StreamConfigHandler;
 import de.itbw18.istream.user.UserHandler;
 import io.javalin.Javalin;
-import io.javalin.config.SizeUnit;
 import io.javalin.http.Context;
-import io.javalin.http.Handler;
 import io.javalin.http.HttpStatus;
 import io.javalin.http.staticfiles.Location;
 import io.javalin.json.JsonMapper;
@@ -32,8 +29,11 @@ import static io.javalin.apibuilder.ApiBuilder.*;
 public class HttpServer {
 
     private Javalin app;
+    private UserHandler userHandler;
 
-    public HttpServer() {
+    public HttpServer(UserHandler userHandler) {
+        this.userHandler = userHandler;
+
         init();
     }
 
@@ -43,7 +43,7 @@ public class HttpServer {
             config.http.asyncTimeout = 10000;
 
             config.jetty.modifyWebSocketServletFactory(factory -> {
-                factory.setMaxBinaryMessageSize(1024 * 1024 *150);
+                factory.setMaxBinaryMessageSize(1024 * 1024 * 150);
             });
 
             config.router.caseInsensitiveRoutes = true;
@@ -98,7 +98,6 @@ public class HttpServer {
 
             config.router.apiBuilder(() -> {
                 path("api/", () -> {
-                    UserHandler userHandler = new UserHandler();
                     crud("users/{user-id}", userHandler);
 
                     StreamConfigHandler streamConfigHandler = new StreamConfigHandler();

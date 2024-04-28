@@ -1,10 +1,18 @@
 package de.itbw18.istream.user;
 
+import de.itbw18.istream.user.store.UserStore;
 import io.javalin.apibuilder.CrudHandler;
 import io.javalin.http.Context;
 import org.jetbrains.annotations.NotNull;
 
 public class UserHandler implements CrudHandler {
+
+    private final UserStore userStore;
+
+    public UserHandler(UserStore userStore) {
+        this.userStore = userStore;
+    }
+
 
     @Override
     public void create(@NotNull Context context) {
