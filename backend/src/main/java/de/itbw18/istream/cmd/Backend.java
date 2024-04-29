@@ -3,6 +3,7 @@ package de.itbw18.istream.cmd;
 import de.itbw18.istream.helpers.database.SQLConnector;
 import de.itbw18.istream.helpers.database.SQLiteConnector;
 import de.itbw18.istream.server.HttpServer;
+import de.itbw18.istream.user.UserAccessHandler;
 import de.itbw18.istream.user.UserHandler;
 import de.itbw18.istream.user.store.UserStoreImpl;
 import de.itbw18.istream.user.store.database.UserDatabase_MySql;
@@ -22,9 +23,13 @@ public class Backend {
 //        sqlConnector = new MySqlConnector("localhost", 3306, "root", "");
         sqlConnector = new SQLiteConnector("db.sqlite");
 
-        UserHandler userHandler = new UserHandler(new UserStoreImpl(new UserDatabase_MySql(sqlConnector)));
 
-        httpServer = new HttpServer(userHandler);
+        UserStoreImpl userStore = new UserStoreImpl(new UserDatabase_MySql(sqlConnector));
+        UserHandler userHandler = new UserHandler(userStore);
+
+        UserAccessHandler userAccessHandler = new UserAccessHandler(userStore);
+
+        httpServer = new HttpServer(userAccessHandler, userHandler);
     }
 
     public void start() {
