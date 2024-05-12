@@ -154,6 +154,34 @@ public class UserDatabase_MySql implements UserDatabase {
     }
 
     @Override
+    public List<User> getUsers() {
+        List<User> users = new ArrayList<>();
+        try {
+            ResultSet result = db.getConnection().createStatement().executeQuery("SELECT * FROM users");
+            while (result.next()) {
+                String id = result.getString("id");
+                String username = result.getString("username");
+                String email = result.getString("email");
+                String password = result.getString("password");
+                long createdAt = result.getLong("created_at");
+
+                users.add(new User(
+                        id,
+                        username,
+                        email,
+                        password,
+                        createdAt,
+                        new String[0],
+                        new String[0]
+                ));
+            }
+        } catch (SQLException e) {
+            Backend.LOGGER.error("Failed to get users", e);
+        }
+        return users;
+    }
+
+    @Override
     public boolean addUser(User user) {
         try {
             db.getConnection()

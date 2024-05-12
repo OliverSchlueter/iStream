@@ -3,7 +3,9 @@ package de.itbw18.istream.user.store;
 import de.itbw18.istream.user.User;
 import de.itbw18.istream.user.store.database.UserDatabase;
 
-public class UserStoreImpl implements UserStore{
+import java.util.List;
+
+public class UserStoreImpl implements UserStore {
 
     private final UserDatabase db;
 
@@ -29,6 +31,11 @@ public class UserStoreImpl implements UserStore{
     @Override
     public User getUserByEmail(String email) {
         return db.getUserByEmail(email);
+    }
+
+    @Override
+    public List<User> getUsers() {
+        return db.getUsers();
     }
 
     @Override
