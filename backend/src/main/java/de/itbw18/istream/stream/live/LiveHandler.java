@@ -1,6 +1,8 @@
 package de.itbw18.istream.stream.live;
 
 import de.itbw18.istream.helpers.WebsocketHandler;
+import de.itbw18.istream.user.User;
+import de.itbw18.istream.user.UserAccessHandler;
 import io.javalin.websocket.*;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.WriteCallback;
@@ -9,11 +11,17 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class LiveHandler extends WebsocketHandler {
 
     private Map<String, List<Session>> sessions = new ConcurrentHashMap<>();
+    private UserAccessHandler userAccessHandler;
+
+    public LiveHandler(UserAccessHandler userAccessHandler) {
+        this.userAccessHandler = userAccessHandler;
+    }
 
     @Override
     public void onConnect(WsConnectContext ctx) {
@@ -44,6 +52,14 @@ public class LiveHandler extends WebsocketHandler {
         System.out.println("Binary Message " + ctx.data().length);
 
         String streamId = ctx.pathParam("user-id");
+
+        userAccessHandler.authenticateWebSocket(ctx);
+        User user = ctx.attribute("user");
+        if (user == null || !Objects.equals(user.id(), streamId)) {
+            ctx.send("Unauthorized");
+            ctx.session.close(WsCloseStatus.BAD_GATEWAY.getCode(), "Unauthorized", null);
+            return;
+        }
 
         List<Session> streamSessions = sessions.getOrDefault(streamId, new ArrayList<>());
         for (Session session : streamSessions) {

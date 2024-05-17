@@ -111,7 +111,7 @@ public class HttpServer {
                     StreamHandler streamHandler = new StreamHandler();
                     crud("streams/{user-id}", streamHandler);
 
-                    LiveHandler liveHandler = new LiveHandler();
+                    LiveHandler liveHandler = new LiveHandler(userAccessHandler);
                     ws("streams/{user-id}/live", liveHandler::handle);
 
                     ChatHandler chatHandler = new ChatHandler();
