@@ -1,7 +1,26 @@
-.iStream-logo {
-  width: 75px;
-  height: 75px;
+header, .header-left {
+  display: flex;
+  justify-content: space-between;
 }
-.iStream-logo-letters {
 
+.hcenter {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
+
+.logo-letters {
+  margin: 0;
+  padding: 0;
+  margin-left: 10px;
+  font-size: 35px;
+}
+
+.iStream-logo {
+  margin: 0;
+  padding: 0;
+  margin-left: 10px;
+  width: 50px;
+  height: 50px;
+}
+
