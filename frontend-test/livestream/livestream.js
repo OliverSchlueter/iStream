@@ -1,23 +1,36 @@
 async function captureAndSend(url) {
     const socket = new WebSocket(url);
-    socket.onopen = function(event) {
+    socket.onopen = function (event) {
         console.log('WebSocket connection for sending data opened');
     };
 
-    socket.onerror = function(error) {
+    socket.onerror = function (error) {
         console.error('WebSocket error for sending data:', error);
     };
 
     try {
-        const stream = await navigator.mediaDevices.getDisplayMedia({
-            video: {
-                width: { ideal: 1920 },
-                height: { ideal: 1080 },
-                frameRate: { ideal: 60 },
-                cursor: 'always',
-            },
-            audio: true
-        });
+        let stream;
+        try {
+            let stream = await navigator.mediaDevices.getDisplayMedia({
+                video: {
+                    width: {ideal: 1920},
+                    height: {ideal: 1080},
+                    frameRate: {ideal: 60},
+                    cursor: 'always',
+                },
+                audio: true
+            });
+        } catch (e) {
+            stream = await navigator.mediaDevices.getUserMedia({
+                video: {
+                    width: {ideal: 1920},
+                    height: {ideal: 1080},
+                    frameRate: {ideal: 60},
+                    cursor: 'always',
+                },
+                audio: true
+            });
+        }
 
         const mediaRecorder = new MediaRecorder(stream, {
             mimeType: 'video/webm'
@@ -26,7 +39,7 @@ async function captureAndSend(url) {
         // uncomment for local video preview
         // localVideo.srcObject = stream;
 
-        mediaRecorder.ondataavailable = function(event) {
+        mediaRecorder.ondataavailable = function (event) {
             if (event.data.size > 0) {
                 socket.send(event.data);
                 console.log('Data sent to server', event.data);
@@ -50,10 +63,11 @@ async function captureAndSend(url) {
  */
 
 let mediaSource = null;
+
 async function receiveData(video, url) {
     const socket = new WebSocket(url);
 
-    socket.onmessage = function(event) {
+    socket.onmessage = function (event) {
         console.log('Data received from server');
         if (!mediaSource) {
             mediaSource = new MediaSource();
@@ -76,7 +90,7 @@ function handleSourceOpen(event) {
 function appendBlobToSourceBuffer(blob) {
     const sourceBuffer = mediaSource.sourceBuffers[0];
     const reader = new FileReader();
-    reader.onload = function(event) {
+    reader.onload = function (event) {
         sourceBuffer.appendBuffer(event.target.result);
     };
     reader.readAsArrayBuffer(blob);
