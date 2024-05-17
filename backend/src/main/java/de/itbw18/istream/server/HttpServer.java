@@ -113,7 +113,6 @@ public class HttpServer {
 
                     LiveHandler liveHandler = new LiveHandler();
                     ws("streams/{user-id}/live", liveHandler::handle);
-                    ws("streams/1/live", liveHandler::handle); // TODO: remove (for testing)
 
                     ChatHandler chatHandler = new ChatHandler();
                     ws("streams/{user-id}/chat", chatHandler::handle);
