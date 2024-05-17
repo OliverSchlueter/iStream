@@ -1,4 +1,7 @@
 .iStream-logo {
-  width: 50px;
-  height: 50px;
+  width: 75px;
+  height: 75px;
+}
+.iStream-logo-letters {
+  font-family: "Montserrat", sans-serif;
 }
