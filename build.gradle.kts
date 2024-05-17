@@ -13,11 +13,11 @@ allprojects {
     }
 }
 
-dependencies{
+dependencies {
     implementation(project(":backend"))
 }
 
-tasks{
+tasks {
     shadowJar {
         dependsOn("copyFrontendToBackend")
         archiveFileName.set("iStream-${version}.jar")
@@ -33,8 +33,8 @@ tasks{
 
 tasks.register<Copy>("copyFrontendToBackend") {
     dependsOn("frontend:npmBuild")
-    file("$rootDir/backend/src/main/resources/frontend").mkdirs()
+    file("$rootDir/backend/src/main/resources/public").mkdirs()
 
     from("$rootDir/frontend/dist/frontend/browser")
-    into("$rootDir/backend/src/main/resources/frontend")
+    into("$rootDir/backend/src/main/resources/public")
 }

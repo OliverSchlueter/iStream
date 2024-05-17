@@ -1,4 +1,5 @@
 backend/src/main/resources/frontend/
+backend/src/main/resources/public/
 
 .gradle
 build/

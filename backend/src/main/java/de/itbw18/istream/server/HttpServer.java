@@ -19,7 +19,6 @@ import io.javalin.json.JsonMapper;
 import io.javalin.openapi.plugin.OpenApiPlugin;
 import io.javalin.openapi.plugin.swagger.SwaggerPlugin;
 import io.javalin.plugin.bundled.CorsPluginConfig;
-import org.eclipse.jetty.util.resource.Resource;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Type;
@@ -122,20 +121,6 @@ public class HttpServer {
                     post("/*", this::apiNotFound);
                     put("/*", this::apiNotFound);
                     delete("/*", this::apiNotFound);
-                });
-
-                // frontend
-                path("/", () -> {
-                    get("/", ctx -> {
-                        ctx.result(Resource.newClassPathResource("frontend/index.html").getInputStream());
-                        ctx.header("Content-Type", "text/html");
-                    });
-
-                    // not found
-                    get("/*", ctx -> {
-                        ctx.result(Resource.newClassPathResource("frontend/404.html").getInputStream());
-                        ctx.header("Content-Type", "text/html");
-                    });
                 });
             });
         });
