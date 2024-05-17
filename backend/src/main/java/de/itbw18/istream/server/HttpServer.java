@@ -103,6 +103,7 @@ public class HttpServer {
                     before("/*", ctx -> userAccessHandler.authenticate(ctx));
 
                     crud("users/{user-id}", userHandler);
+                    userHandler.handleExtra();
 
                     StreamConfigHandler streamConfigHandler = new StreamConfigHandler();
                     crud("stream-config/{user-id}", streamConfigHandler);

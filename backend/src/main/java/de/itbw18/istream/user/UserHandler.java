@@ -16,6 +16,10 @@ public class UserHandler implements CrudHandler {
         this.userStore = userStore;
     }
 
+    public void handleExtra() {
+        io.javalin.apibuilder.ApiBuilder.get("/validate-user", this::validate);
+    }
+
 
     @Override
     public void create(@NotNull Context context) {
@@ -145,6 +149,17 @@ public class UserHandler implements CrudHandler {
         if (!userStore.deleteUser(user)) {
             context.status(HttpStatus.INTERNAL_SERVER_ERROR);
             context.result("Failed to delete user");
+            return;
+        }
+
+        context.status(HttpStatus.OK);
+    }
+
+    public void validate(Context context) {
+        User user = context.attribute("user");
+        if (user == null) {
+            context.status(HttpStatus.UNAUTHORIZED);
+            context.result("Unauthorized");
             return;
         }
 
