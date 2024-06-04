@@ -3,6 +3,10 @@ package de.itbw18.istream.cmd;
 import de.itbw18.istream.helpers.database.SQLConnector;
 import de.itbw18.istream.helpers.database.SQLiteConnector;
 import de.itbw18.istream.server.HttpServer;
+import de.itbw18.istream.stream.StreamHandler;
+import de.itbw18.istream.stream.live.LiveHandler;
+import de.itbw18.istream.stream.store.StreamStore;
+import de.itbw18.istream.stream.store.StreamStoreImpl;
 import de.itbw18.istream.user.UserAccessHandler;
 import de.itbw18.istream.user.UserHandler;
 import de.itbw18.istream.user.store.UserStoreImpl;
@@ -29,7 +33,12 @@ public class Backend {
 
         UserAccessHandler userAccessHandler = new UserAccessHandler(userStore);
 
-        httpServer = new HttpServer(userAccessHandler, userHandler);
+        StreamStore streamStore = new StreamStoreImpl();
+        StreamHandler streamHandler = new StreamHandler(streamStore, userStore);
+
+        LiveHandler liveHandler = new LiveHandler(userAccessHandler, streamStore);
+
+        httpServer = new HttpServer(userAccessHandler, userHandler, streamHandler, liveHandler);
     }
 
     public void start() {

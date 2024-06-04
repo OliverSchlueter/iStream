@@ -28,13 +28,20 @@ import static io.javalin.apibuilder.ApiBuilder.*;
 
 public class HttpServer {
 
+    private final UserHandler userHandler;
+    private final UserAccessHandler userAccessHandler;
+    private final StreamHandler streamHandler;
+    private final LiveHandler liveHandler;
     private Javalin app;
-    private UserHandler userHandler;
-    private UserAccessHandler userAccessHandler;
 
-    public HttpServer(UserAccessHandler userAccessHandler, UserHandler userHandler) {
+    public HttpServer(UserAccessHandler userAccessHandler,
+                      UserHandler userHandler,
+                      StreamHandler streamHandler,
+                      LiveHandler liveHandler) {
         this.userHandler = userHandler;
         this.userAccessHandler = userAccessHandler;
+        this.streamHandler = streamHandler;
+        this.liveHandler = liveHandler;
 
         init();
     }
@@ -106,12 +113,10 @@ public class HttpServer {
                     userHandler.handleExtra();
 
                     StreamConfigHandler streamConfigHandler = new StreamConfigHandler();
-                    crud("stream-config/{user-id}", streamConfigHandler);
+                    crud("stream-configs/{user-id}", streamConfigHandler);
 
-                    StreamHandler streamHandler = new StreamHandler();
                     crud("streams/{user-id}", streamHandler);
 
-                    LiveHandler liveHandler = new LiveHandler(userAccessHandler);
                     ws("streams/{user-id}/live", liveHandler::handle);
 
                     ChatHandler chatHandler = new ChatHandler();

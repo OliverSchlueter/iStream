@@ -1,6 +1,8 @@
 package de.itbw18.istream.stream.live;
 
 import de.itbw18.istream.helpers.WebsocketHandler;
+import de.itbw18.istream.stream.Stream;
+import de.itbw18.istream.stream.store.StreamStore;
 import de.itbw18.istream.user.User;
 import de.itbw18.istream.user.UserAccessHandler;
 import io.javalin.websocket.*;
@@ -16,20 +18,24 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class LiveHandler extends WebsocketHandler {
 
-    private Map<String, List<Session>> sessions = new ConcurrentHashMap<>();
-    private UserAccessHandler userAccessHandler;
+    private final Map<String, List<Session>> sessions = new ConcurrentHashMap<>();
+    private final UserAccessHandler userAccessHandler;
+    private final StreamStore streamStore;
 
-    public LiveHandler(UserAccessHandler userAccessHandler) {
+    public LiveHandler(UserAccessHandler userAccessHandler, StreamStore streamStore) {
         this.userAccessHandler = userAccessHandler;
+        this.streamStore = streamStore;
     }
 
     @Override
     public void onConnect(WsConnectContext ctx) {
         String streamId = ctx.pathParam("user-id");
 
-        List<Session> currentSessions = sessions.getOrDefault(streamId, new ArrayList<>());
-        currentSessions.add(ctx.session);
-        sessions.put(streamId, currentSessions);
+        List<Session> streamSessions = sessions.getOrDefault(streamId, new ArrayList<>());
+        streamSessions.add(ctx.session);
+        sessions.put(streamId, streamSessions);
+
+        streamStore.updateViewers(streamId, streamSessions.size());
 
         System.out.println("Connected " + ctx.sessionId() + " " + streamId);
     }
@@ -38,7 +44,11 @@ public class LiveHandler extends WebsocketHandler {
     public void onClose(WsCloseContext ctx) {
         String streamId = ctx.pathParam("user-id");
 
-        sessions.getOrDefault(streamId, new ArrayList<>()).remove(ctx.session);
+        List<Session> streamSessions = sessions.getOrDefault(streamId, new ArrayList<>());
+        streamSessions.remove(ctx.session);
+
+        streamStore.updateViewers(streamId, streamSessions.size());
+
         System.out.println("Closed " + ctx.sessionId() + " " + ctx.status() + " " + ctx.reason());
     }
 
@@ -58,6 +68,13 @@ public class LiveHandler extends WebsocketHandler {
         if (user == null || !Objects.equals(user.id(), streamId)) {
             ctx.send("Unauthorized");
             ctx.session.close(WsCloseStatus.BAD_GATEWAY.getCode(), "Unauthorized", null);
+            return;
+        }
+
+        Stream stream = streamStore.getStream(user);
+        if (stream == null) {
+            ctx.send("Stream not found");
+            ctx.session.close(WsCloseStatus.BAD_GATEWAY.getCode(), "Stream not found", null);
             return;
         }
 
