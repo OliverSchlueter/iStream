@@ -4,8 +4,7 @@ import de.itbw18.istream.user.store.UserStore;
 import io.javalin.apibuilder.CrudHandler;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
-import io.javalin.openapi.HttpMethod;
-import io.javalin.openapi.OpenApi;
+import io.javalin.openapi.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
@@ -27,7 +26,11 @@ public class UserHandler implements CrudHandler {
             path = "/users",
             methods = HttpMethod.POST,
             summary = "Create a new user",
-            tags = {"User"}
+            tags = {"User"},
+            requestBody = @OpenApiRequestBody(
+                    content = @OpenApiContent(from = RegisterRequest.class),
+                    required = true
+            )
     )
     @Override
     public void create(@NotNull Context context) {
@@ -114,7 +117,7 @@ public class UserHandler implements CrudHandler {
 
     @OpenApi(
             path = "/users/:id",
-            methods = HttpMethod.PATCH,
+            methods = HttpMethod.PUT,
             summary = "Update a user by ID",
             tags = {"User"}
     )
@@ -190,8 +193,19 @@ public class UserHandler implements CrudHandler {
     @OpenApi(
             path = "/validate-user",
             methods = HttpMethod.GET,
-            summary = "Validates the user's session",
-            tags = {"User"})
+            summary = "Validate user credentials",
+            tags = {"User"},
+            headers = {
+                    @OpenApiParam(
+                            required = true,
+                            name = "username"
+                    ),
+                    @OpenApiParam(
+                            required = true,
+                            name = "password"
+                    )
+            }
+    )
     public void validate(Context context) {
         User user = context.attribute("user");
         if (user == null) {
