@@ -14,7 +14,6 @@ import de.itbw18.istream.user.UserHandler;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
-import io.javalin.http.staticfiles.Location;
 import io.javalin.json.JsonMapper;
 import io.javalin.openapi.plugin.OpenApiPlugin;
 import io.javalin.openapi.plugin.swagger.SwaggerPlugin;
@@ -60,7 +59,7 @@ public class HttpServer {
 
             config.router.caseInsensitiveRoutes = true;
 
-            config.staticFiles.add("/public", Location.CLASSPATH);
+//            config.staticFiles.add("/public", Location.CLASSPATH);
 
             Gson httpGson = new GsonBuilder().addSerializationExclusionStrategy(new ExclusionStrategy() {
                         @Override
