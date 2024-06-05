@@ -41,3 +41,11 @@
     - Handler
     - Store
 - Added OpenAPI specification for all endpoints
+
+## 2024-06-05
+
+- Implemented stream config
+    - Handler
+    - Store
+    - Database
+- Added stream config to OpenAPI specification
