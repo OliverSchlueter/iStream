@@ -32,7 +32,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build
-        run: ./gradlew backend:shadowJar
+        run: ./gradlew :backend:clean :backend:shadowJar
 
   test:
     runs-on: ubuntu-latest
@@ -52,4 +52,4 @@ jobs:
         run: chmod +x gradlew
 
       - name: Test
-        run: ./gradlew backend:test
+        run: ./gradlew :backend:clean :backend:shadowJar :backend:test
