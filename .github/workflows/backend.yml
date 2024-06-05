@@ -39,4 +39,4 @@ jobs:
         run: ./gradlew :backend:clean :backend:shadowJar
 
       - name: Test
-        run: ./gradlew :backend:test
+        run: ./gradlew :backend:test --stacktrace --info
