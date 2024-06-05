@@ -141,4 +141,7 @@ public class HttpServer {
         ctx.status(HttpStatus.NOT_FOUND);
     }
 
+    public Javalin getApp() {
+        return app;
+    }
 }

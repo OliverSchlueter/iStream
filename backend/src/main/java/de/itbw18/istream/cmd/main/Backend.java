@@ -1,4 +1,4 @@
-package de.itbw18.istream.cmd;
+package de.itbw18.istream.cmd.main;
 
 import de.itbw18.istream.helpers.database.SQLConnector;
 import de.itbw18.istream.helpers.database.SQLiteConnector;
@@ -33,11 +33,13 @@ public class Backend {
 
 
         UserStoreImpl userStore = new UserStoreImpl(new UserDatabase_MySql(sqlConnector));
+        userStore.setup();
         UserHandler userHandler = new UserHandler(userStore);
 
         UserAccessHandler userAccessHandler = new UserAccessHandler(userStore);
 
         StreamConfigStore streamConfigStore = new StreamConfigStoreImpl(new StreamConfigDatabase_MySql(sqlConnector));
+        streamConfigStore.setup();
         StreamConfigHandler streamConfigHandler = new StreamConfigHandler(streamConfigStore);
 
         StreamStore streamStore = new StreamStoreImpl();
@@ -54,5 +56,9 @@ public class Backend {
             return;
         }
         httpServer.start(8080);
+    }
+
+    public HttpServer getHttpServer() {
+        return httpServer;
     }
 }

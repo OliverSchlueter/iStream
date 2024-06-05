@@ -1,6 +1,6 @@
 package de.itbw18.istream.user.store.database;
 
-import de.itbw18.istream.cmd.Backend;
+import de.itbw18.istream.cmd.main.Backend;
 import de.itbw18.istream.helpers.database.SQLConnector;
 import de.itbw18.istream.user.User;
 

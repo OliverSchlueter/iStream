@@ -4,23 +4,27 @@ plugins {
 }
 
 dependencies {
-    implementation("io.javalin:javalin:6.1.3")
-    annotationProcessor("io.javalin.community.openapi:openapi-annotation-processor:6.1.3")
-    implementation("io.javalin.community.openapi:javalin-openapi-plugin:6.1.3")
-    implementation("io.javalin.community.openapi:javalin-swagger-plugin:6.1.3")
+    var javalinVersion = "6.1.6"
+
+    implementation("io.javalin:javalin:$javalinVersion")
+    annotationProcessor("io.javalin.community.openapi:openapi-annotation-processor:$javalinVersion")
+    implementation("io.javalin.community.openapi:javalin-openapi-plugin:$javalinVersion")
+    implementation("io.javalin.community.openapi:javalin-swagger-plugin:$javalinVersion")
 
     implementation("org.xerial:sqlite-jdbc:3.45.3.0")
 
     implementation("org.slf4j:slf4j-simple:2.0.10")
     implementation("com.google.code.gson:gson:2.10.1")
 
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.7.1")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testImplementation("io.javalin:javalin-testtools:$javalinVersion")
 }
 
 tasks {
     test {
         useJUnitPlatform()
+        maxHeapSize = "1G"
     }
 
     compileJava {
