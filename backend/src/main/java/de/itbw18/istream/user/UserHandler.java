@@ -4,6 +4,7 @@ import de.itbw18.istream.user.store.UserStore;
 import io.javalin.apibuilder.CrudHandler;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
+import io.javalin.openapi.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
@@ -21,6 +22,16 @@ public class UserHandler implements CrudHandler {
     }
 
 
+    @OpenApi(
+            path = "/users",
+            methods = HttpMethod.POST,
+            summary = "Create a new user",
+            tags = {"User"},
+            requestBody = @OpenApiRequestBody(
+                    content = @OpenApiContent(from = RegisterRequest.class),
+                    required = true
+            )
+    )
     @Override
     public void create(@NotNull Context context) {
         RegisterRequest registerRequest = context.bodyAsClass(RegisterRequest.class);
@@ -67,11 +78,23 @@ public class UserHandler implements CrudHandler {
         context.status(HttpStatus.CREATED);
     }
 
+    @OpenApi(
+            path = "/users",
+            methods = HttpMethod.GET,
+            summary = "Get all users",
+            tags = {"User"}
+    )
     @Override
     public void getAll(@NotNull Context context) {
         context.json(userStore.getUsers());
     }
 
+    @OpenApi(
+            path = "/users/:id",
+            methods = HttpMethod.GET,
+            summary = "Get a user by ID",
+            tags = {"User"}
+    )
     @Override
     public void getOne(@NotNull Context context, @NotNull String id) {
         User user = userStore.getUserByID(id);
@@ -92,6 +115,12 @@ public class UserHandler implements CrudHandler {
         context.json(user);
     }
 
+    @OpenApi(
+            path = "/users/:id",
+            methods = HttpMethod.PUT,
+            summary = "Update a user by ID",
+            tags = {"User"}
+    )
     @Override
     public void update(@NotNull Context context, @NotNull String id) {
         User user = context.attribute("user");
@@ -137,6 +166,12 @@ public class UserHandler implements CrudHandler {
         }
     }
 
+    @OpenApi(
+            path = "/users/:id",
+            methods = HttpMethod.DELETE,
+            summary = "Delete a user by ID",
+            tags = {"User"}
+    )
     @Override
     public void delete(@NotNull Context context, @NotNull String id) {
         User user = context.attribute("user");
@@ -155,6 +190,22 @@ public class UserHandler implements CrudHandler {
         context.status(HttpStatus.OK);
     }
 
+    @OpenApi(
+            path = "/validate-user",
+            methods = HttpMethod.GET,
+            summary = "Validate user credentials",
+            tags = {"User"},
+            headers = {
+                    @OpenApiParam(
+                            required = true,
+                            name = "username"
+                    ),
+                    @OpenApiParam(
+                            required = true,
+                            name = "password"
+                    )
+            }
+    )
     public void validate(Context context) {
         User user = context.attribute("user");
         if (user == null) {
