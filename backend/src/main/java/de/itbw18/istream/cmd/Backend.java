@@ -7,6 +7,10 @@ import de.itbw18.istream.stream.StreamHandler;
 import de.itbw18.istream.stream.live.LiveHandler;
 import de.itbw18.istream.stream.store.StreamStore;
 import de.itbw18.istream.stream.store.StreamStoreImpl;
+import de.itbw18.istream.streamconfig.StreamConfigHandler;
+import de.itbw18.istream.streamconfig.store.StreamConfigStore;
+import de.itbw18.istream.streamconfig.store.StreamConfigStoreImpl;
+import de.itbw18.istream.streamconfig.store.database.StreamConfigDatabase_MySql;
 import de.itbw18.istream.user.UserAccessHandler;
 import de.itbw18.istream.user.UserHandler;
 import de.itbw18.istream.user.store.UserStoreImpl;
@@ -33,12 +37,15 @@ public class Backend {
 
         UserAccessHandler userAccessHandler = new UserAccessHandler(userStore);
 
+        StreamConfigStore streamConfigStore = new StreamConfigStoreImpl(new StreamConfigDatabase_MySql(sqlConnector));
+        StreamConfigHandler streamConfigHandler = new StreamConfigHandler(streamConfigStore);
+
         StreamStore streamStore = new StreamStoreImpl();
         StreamHandler streamHandler = new StreamHandler(streamStore, userStore);
 
         LiveHandler liveHandler = new LiveHandler(userAccessHandler, streamStore);
 
-        httpServer = new HttpServer(userAccessHandler, userHandler, streamHandler, liveHandler);
+        httpServer = new HttpServer(userAccessHandler, userHandler, streamConfigHandler, streamHandler, liveHandler);
     }
 
     public void start() {

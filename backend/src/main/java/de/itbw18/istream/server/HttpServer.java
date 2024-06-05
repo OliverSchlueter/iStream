@@ -30,16 +30,19 @@ public class HttpServer {
 
     private final UserHandler userHandler;
     private final UserAccessHandler userAccessHandler;
+    private final StreamConfigHandler streamConfigHandler;
     private final StreamHandler streamHandler;
     private final LiveHandler liveHandler;
     private Javalin app;
 
     public HttpServer(UserAccessHandler userAccessHandler,
                       UserHandler userHandler,
+                      StreamConfigHandler streamConfigHandler,
                       StreamHandler streamHandler,
                       LiveHandler liveHandler) {
         this.userHandler = userHandler;
         this.userAccessHandler = userAccessHandler;
+        this.streamConfigHandler = streamConfigHandler;
         this.streamHandler = streamHandler;
         this.liveHandler = liveHandler;
 
@@ -111,10 +114,7 @@ public class HttpServer {
 
                     crud("users/{user-id}", userHandler);
                     userHandler.handleExtra();
-
-                    StreamConfigHandler streamConfigHandler = new StreamConfigHandler();
                     crud("stream-configs/{user-id}", streamConfigHandler);
-
                     crud("streams/{user-id}", streamHandler);
 
                     ws("streams/{user-id}/live", liveHandler::handle);
