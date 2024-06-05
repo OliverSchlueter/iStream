@@ -49,3 +49,4 @@
     - Store
     - Database
 - Added stream config to OpenAPI specification
+- Added pipeline for backend testing
