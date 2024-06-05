@@ -47,3 +47,7 @@ header {
   padding: 6px 9px;
   margin-right: 10px;
 }
+
+.ButtonGroup {
+  display: flex;
+}
