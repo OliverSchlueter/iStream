@@ -49,4 +49,9 @@
     - Store
     - Database
 - Added stream config to OpenAPI specification
+- Implemented e2e tests for user routes
 - Added pipeline for backend testing
+
+## 2024-06-06
+
+- Added frontend CI pipeline
