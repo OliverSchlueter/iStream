@@ -117,7 +117,7 @@ public class UserHandler implements CrudHandler {
 
     @OpenApi(
             path = "/users/:id",
-            methods = HttpMethod.PUT,
+            methods = HttpMethod.PATCH,
             summary = "Update a user by ID",
             tags = {"User"}
     )

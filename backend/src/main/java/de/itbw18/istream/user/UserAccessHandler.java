@@ -2,7 +2,7 @@ package de.itbw18.istream.user;
 
 import de.itbw18.istream.user.store.UserStore;
 import io.javalin.http.Context;
-import io.javalin.http.HttpStatus;
+import io.javalin.http.UnauthorizedResponse;
 import io.javalin.websocket.WsContext;
 
 public class UserAccessHandler {
@@ -26,8 +26,7 @@ public class UserAccessHandler {
     public void authorize(Context context) {
         User user = context.attribute("user");
         if (user == null) {
-            context.status(HttpStatus.UNAUTHORIZED);
-            context.result("Unauthorized");
+            throw new UnauthorizedResponse("Unauthorized");
         }
     }
 

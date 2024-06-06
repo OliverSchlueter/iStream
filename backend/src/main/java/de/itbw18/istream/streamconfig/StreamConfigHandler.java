@@ -2,6 +2,7 @@ package de.itbw18.istream.streamconfig;
 
 import de.itbw18.istream.streamconfig.store.StreamConfigStore;
 import de.itbw18.istream.user.User;
+import de.itbw18.istream.user.UserAccessHandler;
 import io.javalin.apibuilder.CrudHandler;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
@@ -14,9 +15,11 @@ import org.jetbrains.annotations.NotNull;
 public class StreamConfigHandler implements CrudHandler {
 
     private final StreamConfigStore streamConfigStore;
+    private final UserAccessHandler userAccessHandler;
 
-    public StreamConfigHandler(StreamConfigStore streamConfigStore) {
+    public StreamConfigHandler(StreamConfigStore streamConfigStore, UserAccessHandler userAccessHandler) {
         this.streamConfigStore = streamConfigStore;
+        this.userAccessHandler = userAccessHandler;
     }
 
     @OpenApi(
@@ -32,6 +35,7 @@ public class StreamConfigHandler implements CrudHandler {
     @Override
     public void create(@NotNull Context context) {
         User user = context.attribute("user");
+        userAccessHandler.authorize(context);
 
         CreateOrUpdateStreamConfigRequest request = context.bodyAsClass(CreateOrUpdateStreamConfigRequest.class);
         if (request == null) {
@@ -50,6 +54,7 @@ public class StreamConfigHandler implements CrudHandler {
         }
 
         streamConfigStore.createStreamConfig(streamConfig);
+        context.status(HttpStatus.CREATED);
     }
 
     @Override
@@ -76,7 +81,7 @@ public class StreamConfigHandler implements CrudHandler {
 
     @OpenApi(
             path = "/stream-config/:id",
-            methods = HttpMethod.PUT,
+            methods = HttpMethod.PATCH,
             summary = "Update a stream config",
             tags = {"StreamConfig"},
             requestBody = @OpenApiRequestBody(

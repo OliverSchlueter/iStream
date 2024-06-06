@@ -109,7 +109,7 @@ public class HttpServer {
 
             config.router.apiBuilder(() -> {
                 path("api/", () -> {
-                    before("/*", ctx -> userAccessHandler.authenticate(ctx));
+                    before("/*", userAccessHandler::authenticate);
 
                     crud("users/{user-id}", userHandler);
                     userHandler.handleExtra();

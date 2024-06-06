@@ -40,7 +40,7 @@ public class Backend {
 
         StreamConfigStore streamConfigStore = new StreamConfigStoreImpl(new StreamConfigDatabase_MySql(sqlConnector));
         streamConfigStore.setup();
-        StreamConfigHandler streamConfigHandler = new StreamConfigHandler(streamConfigStore);
+        StreamConfigHandler streamConfigHandler = new StreamConfigHandler(streamConfigStore, userAccessHandler);
 
         StreamStore streamStore = new StreamStoreImpl();
         StreamHandler streamHandler = new StreamHandler(streamStore, userStore);
