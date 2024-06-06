@@ -2,7 +2,6 @@ name: Backend CI
 
 on:
   push:
-    branches: [ "main" ]
 
 jobs:
   backend:
@@ -61,7 +60,7 @@ jobs:
         run: cd frontend
 
       - name: Install dependencies
-        run: npm install
+        run: cd frontend && npm install
 
       - name: Build frontend
-        run: npm run build
+        run: cd frontend && npm run build
