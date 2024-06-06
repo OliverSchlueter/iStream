@@ -1,4 +1,4 @@
-name: Backend CI
+name: Build and Test
 
 on:
   push:
@@ -55,7 +55,7 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-            
+
       - name: Install dependencies
         run: cd frontend && npm install
 
