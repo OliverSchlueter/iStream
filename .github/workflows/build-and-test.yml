@@ -5,7 +5,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build-and-test:
+  backend:
     runs-on: ubuntu-latest
 
     steps:
@@ -33,8 +33,32 @@ jobs:
       - name: Wrapper permissions
         run: chmod +x gradlew
 
-      - name: Build
+      - name: Build backend
         run: ./gradlew :backend:clean :backend:shadowJar
 
-      - name: Test
+      - name: Test backend
         run: ./gradlew :backend:test --stacktrace --info
+
+  frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+
+      - name: Cache Node.js dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build frontend
+        run: npm run build
