@@ -43,7 +43,7 @@ public class Backend {
         StreamConfigHandler streamConfigHandler = new StreamConfigHandler(streamConfigStore, userAccessHandler);
 
         StreamStore streamStore = new StreamStoreImpl();
-        StreamHandler streamHandler = new StreamHandler(streamStore, userStore);
+        StreamHandler streamHandler = new StreamHandler(streamStore, userStore, userAccessHandler);
 
         LiveHandler liveHandler = new LiveHandler(userAccessHandler, streamStore);
 

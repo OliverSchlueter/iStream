@@ -34,7 +34,7 @@ public class BackendE2E {
         StreamConfigHandler streamConfigHandler = new StreamConfigHandler(streamConfigStore, userAccessHandler);
 
         streamStore = new StreamStoreImpl();
-        StreamHandler streamHandler = new StreamHandler(streamStore, userStore);
+        StreamHandler streamHandler = new StreamHandler(streamStore, userStore, userAccessHandler);
 
         LiveHandler liveHandler = new LiveHandler(userAccessHandler, streamStore);
 

@@ -2,6 +2,7 @@ package de.itbw18.istream.stream;
 
 import de.itbw18.istream.stream.store.StreamStore;
 import de.itbw18.istream.user.User;
+import de.itbw18.istream.user.UserAccessHandler;
 import de.itbw18.istream.user.store.UserStore;
 import io.javalin.apibuilder.CrudHandler;
 import io.javalin.http.Context;
@@ -16,10 +17,12 @@ public class StreamHandler implements CrudHandler {
 
     private final StreamStore streamStore;
     private final UserStore userStore;
+    private final UserAccessHandler userAccessHandler;
 
-    public StreamHandler(StreamStore streamStore, UserStore userStore) {
+    public StreamHandler(StreamStore streamStore, UserStore userStore, UserAccessHandler userAccessHandler) {
         this.streamStore = streamStore;
         this.userStore = userStore;
+        this.userAccessHandler = userAccessHandler;
     }
 
     @OpenApi(
@@ -35,6 +38,7 @@ public class StreamHandler implements CrudHandler {
     @Override
     public void create(@NotNull Context context) {
         User user = context.attribute("user");
+        userAccessHandler.authorize(context);
 
         CreateStreamRequest createStreamRequest = context.bodyAsClass(CreateStreamRequest.class);
         if (createStreamRequest == null) {
@@ -95,6 +99,7 @@ public class StreamHandler implements CrudHandler {
     @Override
     public void delete(@NotNull Context context, @NotNull String id) {
         User user = context.attribute("user");
+        userAccessHandler.authorize(context);
 
         if (!id.equals(user.id())) {
             context.status(HttpStatus.FORBIDDEN);
@@ -103,7 +108,6 @@ public class StreamHandler implements CrudHandler {
         }
 
         streamStore.stopStream(user);
-        context.status(HttpStatus.NO_CONTENT);
     }
 
     record CreateStreamRequest(String streamer) {
