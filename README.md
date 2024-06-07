@@ -15,5 +15,3 @@ Backend: Java, Javalin, HTTP-Server, WebSockets
 Database: MySQL
 
 Infrastructure: GitHub, Nginx, Docker, Docker Compose
-
-
