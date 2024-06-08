@@ -12,4 +12,5 @@ import { SidebarComponent } from "../sidebar/sidebar.component";
 })
 export class AppComponent {
   title = 'frontend';
+  username = 'username'
 }

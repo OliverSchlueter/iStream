@@ -1,9 +1,16 @@
 <main>
-  <div class="center">
-    <input placeholder="Mail">
-    <input placeholder="Username">
-    <input placeholder="Password">
-    <input placeholder="Confirm password">
+
+  <div class="centerInput">
+    <div class="registrationInput">
+    <label>Mail: </label><input placeholder="Mail" [(ngModel)]="mail">
+    <label>Username: </label><input placeholder="Username" [(ngModel)]="username">
+    <label>Password: </label><input placeholder="Password" [(ngModel)]="password">
+    <label>Confirm Password: </label><input placeholder="Confirm password" [(ngModel)]="confirmPassword">
+
+
+    <button (click)="register()">register</button>
+    </div>
   </div>
+
 </main>
 

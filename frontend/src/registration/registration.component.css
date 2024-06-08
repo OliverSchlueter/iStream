@@ -1,0 +1,16 @@
+.registrationInput {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  text-align: center;
+  justify-content: space-between;
+}
+
+.centerInput Input{
+  border: white 1px solid;
+  border-radius: 8px;
+  color: white;
+  background-color: transparent;
+  padding: 5px;
+}
+
