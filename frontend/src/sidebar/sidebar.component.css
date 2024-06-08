@@ -4,12 +4,33 @@ body {
     width: 200px;
 }
 
-.streamer {
-     
+.streamer-name {
+    font-size: 20px;
+    padding: 8px 10px;
+    margin: 0;
 }
 
-.dot {
-    font-size: 24px; 
-    color: red; 
-    margin: 15px; 
+.Dot {
+    margin-top: 15px;
+    margin-right: 8px;
 }
+
+.streamer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.streamer:hover {
+    background-color: rgba(24, 24, 165, 0.688);
+    border-radius: 10px;
+}
+
+.sidebar {
+    max-width: 200px;
+    height: 100vh;
+    border-right: 1px rgb(255, 255, 255) solid;
+    padding: 10px;
+}
+    
+ 

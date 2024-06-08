@@ -7,40 +7,12 @@
 </head>
 <body>
     <div class="sidebar">
-        <h2>Folge ich</h2>
-        <div class="streamer">
-            <span class="streamer-name">Streamer 1</span>
-            <span class="dot">·</span>
-        </div>
-        <div class="streamer">
-            <span class="streamer-name">Streamer 2</span>
-            <span class="dot">·</span>
-        </div>
-        <div class="streamer">
-            <span class="streamer-name">Streamer 3</span>
-            <span class="dot">·</span>
-        </div>
-        <div class="streamer">
-            <span class="streamer-name">Streamer 4</span>
-            <span class="dot">·</span>
-        </div>
-        <h2>Empfohlen</h2>
-        <div class="streamer">
-            <span class="streamer-name">Streamer A</span>
-            <span class="dot">·</span>
-        </div>
-        <div class="streamer">
-            <span class="streamer-name">Streamer B</span>
-            <span class="dot">·</span>
-        </div>
-        <div class="streamer">
-            <span class="streamer-name">Streamer C</span>
-            <span class="dot">·</span>
-        </div>
-        <div class="streamer">
-            <span class="streamer-name">Streamer D</span>
-            <span class="dot">·</span>
-        </div>
+        <h2>Follows</h2>
+        <div class="streamer" *ngFor="let s of streamer" routerLink='watchview' (click)="streamerlink(s)">
+                <p class="streamer-name">{{s.streamer}}</p>
+                <img class="Dot" src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Basic_red_dot.png" width="10" height="10">
+          </div>
+        <h2>For You</h2>
     </div>
 </body>
 </html>
