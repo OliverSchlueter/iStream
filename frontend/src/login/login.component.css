@@ -1,0 +1,29 @@
+.logIn {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 30%;
+  width: 30%;
+  left: 40%;
+  text-align: center;
+  justify-content: space-between;
+}
+
+.logIn input {
+  text-align: center;
+  border: white 1px solid;
+  border-radius: 8px;
+  color: white;
+  background-color: transparent;
+  padding: 5px;
+  margin: 10px;
+}
+
+.logIn button {
+  border: white 1px solid;
+  border-radius: 8px;
+  color: #ffffff;
+  background-color: transparent;
+  padding: 5px;
+  margin: 20px;
+}
