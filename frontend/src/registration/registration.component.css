@@ -2,25 +2,28 @@
   position: absolute;
   display: flex;
   flex-direction: column;
-  top: 50%;
-  width: 100%;
+  top: 30%;
+  width: 30%;
+  left: 40%;
   text-align: center;
   justify-content: space-between;
 }
 
-
-.centerInput Input{
+.centerInput input {
   text-align: center;
-  width: 200px;
   border: white 1px solid;
   border-radius: 8px;
   color: white;
   background-color: transparent;
   padding: 5px;
+  margin: 10px;
 }
 
 .centerInput button {
-  width: 100px;
-
+  border: white 1px solid;
+  border-radius: 8px;
+  color: #ffffff;
+  background-color: transparent;
+  padding: 5px;
+  margin: 20px;
 }
-
