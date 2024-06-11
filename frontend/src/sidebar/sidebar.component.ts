@@ -1,6 +1,7 @@
 import {RouterLink} from "@angular/router";
 import { Component } from '@angular/core';
 import {NgFor, NgForOf} from "@angular/common";
+import { Stream, fetchOnlineStreamers } from "../api/streams";
 
 
 @Component({
@@ -11,12 +12,20 @@ import {NgFor, NgForOf} from "@angular/common";
   styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent {
-  streamer = [
-    {streamer: "streamer1"},
-    {streamer: "streamer2"},
-    {streamer: "streamer3"},
-    {streamer: "streamer4"},
+  streamer: Stream[] = [];
+
+  streamerdummy = [
+    {streamer: "Trymacs"},
+    {streamer: "Monte"},
+    {streamer: "Froids"},
+    {streamer: "Test"},
   ];
+
+  constructor() {
+    fetchOnlineStreamers().then((streamers) => {
+        this.streamer = streamers;
+    });
+}
 
   public streamerlink(s: any) {
     window.postMessage({
