@@ -44,6 +44,12 @@ jobs:
       - name: Wrapper permissions
         run: chmod +x gradlew
 
+      - name: Install frontend dependencies
+        run: cd frontend && npm install
+
+      - name: Build frontend
+        run: cd frontend && npm run build
+
       - name: Build backend
         run: ./gradlew clean shadowJar
 
