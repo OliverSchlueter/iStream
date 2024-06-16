@@ -19,7 +19,6 @@ dependencies {
 
 tasks {
     shadowJar {
-        dependsOn("copyFrontendToBackend")
         archiveFileName.set("iStream.jar")
         archiveClassifier.set("")
 

@@ -1,4 +1,4 @@
-name: Deploy
+name: Deployment
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
       - docker-test
 
 jobs:
-  deploy:
+  deployment:
     runs-on: ubuntu-latest
 
     steps:
@@ -50,8 +50,11 @@ jobs:
       - name: Build frontend
         run: cd frontend && npm run build
 
+      - name: Copy frontend to backend
+        run: ./gradlew copyFrontendToBackend
+
       - name: Build backend
-        run: ./gradlew clean shadowJar
+        run: ./gradlew shadowJar
 
       - name: Login to Docker Hub
         uses: docker/login-action@v1

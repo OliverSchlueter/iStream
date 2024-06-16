@@ -23,7 +23,6 @@ import org.eclipse.jetty.util.resource.Resource;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.URL;
 import java.util.logging.Logger;
@@ -154,7 +153,7 @@ public class HttpServer {
     private void frontendRedirect(Context ctx) {
         try {
             ctx.result(Resource.newClassPathResource("public/index.html").getInputStream());
-        } catch (IOException e) {
+        } catch (Exception e) {
             ctx.result("Not found");
             ctx.status(HttpStatus.NOT_FOUND);
         }
