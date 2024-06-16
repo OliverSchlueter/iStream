@@ -31,6 +31,10 @@ public class Backend {
 //        sqlConnector = new MySqlConnector("localhost", 3306, "root", "");
         sqlConnector = new SQLiteConnector("db.sqlite");
 
+        if (!sqlConnector.connect()) {
+            LOGGER.error("Failed to connect to database");
+            return;
+        }
 
         UserStoreImpl userStore = new UserStoreImpl(new UserDatabase_MySql(sqlConnector));
         userStore.setup();
