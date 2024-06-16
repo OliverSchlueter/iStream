@@ -55,3 +55,12 @@
 ## 2024-06-06
 
 - Added frontend CI pipeline
+- Added e2e tests for stream config routes
+- Added e2e tests for stream routes
+
+## 2024-06-16
+
+- Fixed some gradle issues
+- Fixed database connection
+- Added docker support
+- Added deployment pipeline
