@@ -14,13 +14,18 @@ import de.itbw18.istream.user.UserHandler;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
+import io.javalin.http.staticfiles.Location;
 import io.javalin.json.JsonMapper;
 import io.javalin.openapi.plugin.OpenApiPlugin;
 import io.javalin.openapi.plugin.swagger.SwaggerPlugin;
 import io.javalin.plugin.bundled.CorsPluginConfig;
+import org.eclipse.jetty.util.resource.Resource;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Type;
+import java.net.URL;
 import java.util.logging.Logger;
 
 import static io.javalin.apibuilder.ApiBuilder.*;
@@ -59,7 +64,11 @@ public class HttpServer {
 
             config.router.caseInsensitiveRoutes = true;
 
-//            config.staticFiles.add("/public", Location.CLASSPATH);
+            URL frontendFolderURL = getClass().getResource("/public");
+            if (frontendFolderURL != null && new File(frontendFolderURL.getFile()).exists()) {
+                config.staticFiles.add("/public", Location.CLASSPATH);
+                System.out.println("Serving frontend from " + frontendFolderURL.getFile());
+            }
 
             Gson httpGson = new GsonBuilder().addSerializationExclusionStrategy(new ExclusionStrategy() {
                         @Override
@@ -127,12 +136,29 @@ public class HttpServer {
                     put("/*", this::apiNotFound);
                     delete("/*", this::apiNotFound);
                 });
+
+                // frontend
+                path("/", () -> {
+                    get("/register", this::frontendRedirect);
+                    get("/login", this::frontendRedirect);
+                    get("/watchview", this::frontendRedirect);
+                });
             });
         });
     }
 
     public void start(int port) {
         app.start(port);
+    }
+
+    private void frontendRedirect(Context ctx) {
+        try {
+            ctx.result(Resource.newClassPathResource("public/index.html").getInputStream());
+        } catch (IOException e) {
+            ctx.result("Not found");
+            ctx.status(HttpStatus.NOT_FOUND);
+        }
+        ctx.header("Content-Type", "text/html");
     }
 
     private void apiNotFound(Context ctx) {
