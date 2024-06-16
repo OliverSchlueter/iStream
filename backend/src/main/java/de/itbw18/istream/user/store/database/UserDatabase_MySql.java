@@ -23,6 +23,38 @@ public class UserDatabase_MySql implements UserDatabase {
         if (!db.isConnected()) {
             throw new IllegalStateException("Database is not connected");
         }
+
+        try {
+            db.getConnection().createStatement().execute("""
+                    CREATE TABLE IF NOT EXISTS `users`
+                    (
+                        `id`         varchar(255) NOT NULL,
+                        `username`   varchar(255) NOT NULL,
+                        `password`   varchar(255) NOT NULL,
+                        `email`      varchar(255) NOT NULL,
+                        `created_at` bigint       NOT NULL,
+                        PRIMARY KEY (`id`)
+                    );
+                    """);
+        } catch (SQLException e) {
+            throw new IllegalStateException("Failed to create users table", e);
+        }
+
+        try {
+            db.getConnection().createStatement().execute("""
+                    CREATE TABLE IF NOT EXISTS `followers`
+                    (
+                        `follower_id` varchar(255) NOT NULL,
+                        `followee_id` varchar(255) NOT NULL,
+                        `created_at`  bigint       NOT NULL,
+                        PRIMARY KEY (`follower_id`, `followee_id`),
+                        FOREIGN KEY (`follower_id`) REFERENCES `users` (`id`),
+                        FOREIGN KEY (`followee_id`) REFERENCES `users` (`id`)
+                    );
+                                        """);
+        } catch (SQLException e) {
+            throw new IllegalStateException("Failed to create followers table", e);
+        }
     }
 
     private String[] getFollowing(String id) {

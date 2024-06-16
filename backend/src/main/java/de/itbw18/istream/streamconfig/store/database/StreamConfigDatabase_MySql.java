@@ -4,6 +4,8 @@ import de.itbw18.istream.cmd.main.Backend;
 import de.itbw18.istream.helpers.database.SQLConnector;
 import de.itbw18.istream.streamconfig.StreamConfig;
 
+import java.sql.SQLException;
+
 public class StreamConfigDatabase_MySql implements StreamConfigDatabase {
 
     private final SQLConnector db;
@@ -16,6 +18,22 @@ public class StreamConfigDatabase_MySql implements StreamConfigDatabase {
     public void setup() {
         if (!db.isConnected()) {
             throw new IllegalStateException("Database is not connected");
+        }
+
+        try {
+            db.getConnection().createStatement().execute("""
+                    CREATE TABLE IF NOT EXISTS `stream_configs`
+                    (
+                        `user_id`     varchar(255) NOT NULL,
+                        `title`       varchar(255) NOT NULL,
+                        `description` varchar(255) NOT NULL,
+                        `category`    varchar(255) NOT NULL,
+                        PRIMARY KEY (`user_id`),
+                        FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+                    );
+                                                            """);
+        } catch (SQLException e) {
+            throw new IllegalStateException("Failed to create followers table", e);
         }
     }
 
