@@ -4,7 +4,7 @@ plugins {
 }
 
 dependencies {
-    var javalinVersion = "6.1.6"
+    val javalinVersion = "6.1.6"
 
     implementation("io.javalin:javalin:$javalinVersion")
     annotationProcessor("io.javalin.community.openapi:openapi-annotation-processor:$javalinVersion")
@@ -22,6 +22,14 @@ dependencies {
 }
 
 tasks {
+    shadowJar {
+        archiveFileName.set("iStream.jar")
+
+        manifest {
+            attributes["Main-Class"] = "de.itbw18.istream.cmd.Main"
+        }
+    }
+
     test {
         useJUnitPlatform()
         maxHeapSize = "1G"
