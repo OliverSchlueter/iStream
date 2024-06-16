@@ -1,10 +1,7 @@
 name: Deployment
 
 on:
-  push:
-    branches:
-      - main
-      - docker-test
+  workflow_dispatch:
 
 jobs:
   deployment:
@@ -41,14 +38,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - name: Wrapper permissions
-        run: chmod +x gradlew
-
       - name: Install frontend dependencies
         run: cd frontend && npm install
 
       - name: Build frontend
         run: cd frontend && npm run build
+
+      - name: Wrapper permissions
+        run: chmod +x gradlew
 
       - name: Copy frontend to backend
         run: ./gradlew copyFrontendToBackend
