@@ -59,7 +59,7 @@ public class Backend {
             System.out.println("Failed to connect to database");
             return;
         }
-        httpServer.start(8080);
+        httpServer.start(7457);
     }
 
     public HttpServer getHttpServer() {

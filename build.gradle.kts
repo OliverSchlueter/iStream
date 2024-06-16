@@ -19,8 +19,7 @@ dependencies {
 
 tasks {
     shadowJar {
-        dependsOn("copyFrontendToBackend")
-        archiveFileName.set("iStream-${version}.jar")
+        archiveFileName.set("iStream.jar")
         archiveClassifier.set("")
 
         manifest {
@@ -32,7 +31,7 @@ tasks {
 }
 
 tasks.register<Copy>("copyFrontendToBackend") {
-    dependsOn("frontend:npmBuild")
+    dependsOn("frontend:npm_run_build")
     file("$rootDir/backend/src/main/resources/public").mkdirs()
 
     from("$rootDir/frontend/dist/frontend/browser")

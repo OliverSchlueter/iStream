@@ -22,10 +22,8 @@ import io.javalin.plugin.bundled.CorsPluginConfig;
 import org.eclipse.jetty.util.resource.Resource;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.net.URL;
 import java.util.logging.Logger;
 
 import static io.javalin.apibuilder.ApiBuilder.*;
@@ -64,10 +62,14 @@ public class HttpServer {
 
             config.router.caseInsensitiveRoutes = true;
 
-            URL frontendFolderURL = getClass().getResource("/public");
-            if (frontendFolderURL != null && new File(frontendFolderURL.getFile()).exists()) {
+            Resource frontendFolder = Resource.newClassPathResource("public");
+            if (frontendFolder != null && frontendFolder.exists()) {
                 config.staticFiles.add("/public", Location.CLASSPATH);
-                System.out.println("Serving frontend from " + frontendFolderURL.getFile());
+                try {
+                    System.out.println("Serving frontend from " + frontendFolder.getFile());
+                } catch (IOException e) {
+                    
+                }
             }
 
             Gson httpGson = new GsonBuilder().addSerializationExclusionStrategy(new ExclusionStrategy() {
@@ -154,7 +156,7 @@ public class HttpServer {
     private void frontendRedirect(Context ctx) {
         try {
             ctx.result(Resource.newClassPathResource("public/index.html").getInputStream());
-        } catch (IOException e) {
+        } catch (Exception e) {
             ctx.result("Not found");
             ctx.status(HttpStatus.NOT_FOUND);
         }
