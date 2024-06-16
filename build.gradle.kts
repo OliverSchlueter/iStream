@@ -20,7 +20,7 @@ dependencies {
 tasks {
     shadowJar {
         dependsOn("copyFrontendToBackend")
-        archiveFileName.set("iStream-${version}.jar")
+        archiveFileName.set("iStream.jar")
         archiveClassifier.set("")
 
         manifest {
