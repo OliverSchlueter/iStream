@@ -32,7 +32,7 @@ tasks {
 }
 
 tasks.register<Copy>("copyFrontendToBackend") {
-    dependsOn("frontend:npmBuild")
+    dependsOn("frontend:npm_run_build")
     file("$rootDir/backend/src/main/resources/public").mkdirs()
 
     from("$rootDir/frontend/dist/frontend/browser")
