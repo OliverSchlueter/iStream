@@ -28,6 +28,9 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
+      - name: Wrapper permissions
+        run: chmod +x gradlew
+
       - name: Build backend
         run: ./gradlew clean shadowJar
 
