@@ -39,6 +39,12 @@ jobs:
       - name: Test backend
         run: ./gradlew :backend:test --stacktrace --info
 
+      - name: Archive backend jar
+        uses: actions/upload-artifact@v3
+        with:
+          name: iStream-backend
+          path: backend/build/libs/iStream.jar
+
   frontend:
     runs-on: ubuntu-latest
 
