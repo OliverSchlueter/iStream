@@ -12,9 +12,9 @@
 
     <div class="header-right hcenter">
       <div class="ButtonGroup">
-        <button routerLink='login'>LogIn</button>
-        <button routerLink='register'>Registration</button>
-        <button class>Stream now</button>
+        <button routerLink='login' *ngIf="localStorage.getItem('username')===null">LogIn</button>
+        <button routerLink='register' *ngIf="localStorage.getItem('username')===null">Registration</button>
+        <button class *ngIf="localStorage.getItem('username')!==null">Stream now</button>
     </div>
     </div>
 </header>

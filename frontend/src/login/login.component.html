@@ -1,8 +1,8 @@
 <div class="logIn">
   <label>Username</label>
-  <input placeholder="Username" class="Username">
+  <input placeholder="Username" [(ngModel)]="username">
   <label>Password</label>
-  <input placeholder="Password" class="Password">
-  <button>Confirm</button>
+  <input placeholder="Password" [(ngModel)]="password">
+  <button (click)="login()">Login</button>
 </div>
 
