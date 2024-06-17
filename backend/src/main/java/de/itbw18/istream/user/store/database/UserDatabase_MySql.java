@@ -131,6 +131,8 @@ public class UserDatabase_MySql implements UserDatabase {
                 email = result.getString("email");
                 password = result.getString("password");
                 createdAt = result.getLong("created_at");
+            } else {
+                return null;
             }
         } catch (SQLException e) {
             Backend.LOGGER.error("Failed to get user by username", e);
@@ -165,6 +167,8 @@ public class UserDatabase_MySql implements UserDatabase {
                 username = result.getString("username");
                 password = result.getString("password");
                 createdAt = result.getLong("created_at");
+            } else {
+                return null;
             }
         } catch (SQLException e) {
             Backend.LOGGER.error("Failed to get user by username", e);
