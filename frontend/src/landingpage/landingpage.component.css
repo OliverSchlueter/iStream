@@ -1,0 +1,41 @@
+:host(app-landingpage) {
+    min-width: calc(100% - 200px);
+}
+
+.StreamGroß {
+   height: 350px;
+   min-width: 100%;
+   background-color: blue;
+}
+
+.Titlepage {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.picture {
+    height: 169px;
+    width: 300px;
+    background-color: blue;
+    margin-top: 20px;
+}
+
+.bottom {
+    display: flex;
+    align-items: center
+}
+
+.streamers {
+    margin-left: 50px;
+}
+
+.streamer {
+    float: left; 
+    margin-right: 20px;
+    font-size: large;
+}
+
+
+.viewer {
+    font-size: medium;
+}
