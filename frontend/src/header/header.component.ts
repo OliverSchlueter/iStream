@@ -16,4 +16,9 @@ export class HeaderComponent {
 
   public headerButtonText = "Log In";
   protected readonly localStorage = localStorage;
+
+  public async logout(){
+    localStorage.removeItem("username");
+    localStorage.removeItem("password");
+  }
 }
