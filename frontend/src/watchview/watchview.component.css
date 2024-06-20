@@ -1,9 +1,20 @@
-.Test {
-    width: 1900px;
+.page {
+    height: 1000px;
+    width: 1665px;
+    background-color: #010012;
 }
 
+.stream.bottom {
+    width: 500px;
+    float: left;
+}
 
+.Test {
+    width: 1250px;
+    height: 703px;
+}
 
-:host(app-watchview) {
-
+.Test1 {
+    width: 1250px;
+    height: 500px;
 }

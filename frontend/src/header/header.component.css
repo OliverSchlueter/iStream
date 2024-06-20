@@ -47,6 +47,7 @@ header {
   background-color: transparent;
   padding: 6px 9px;
   margin-right: 10px;
+  cursor: pointer;
 }
 
 .ButtonGroup {

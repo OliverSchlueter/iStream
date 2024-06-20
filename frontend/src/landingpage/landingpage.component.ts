@@ -22,7 +22,7 @@ export class LandingpageComponent {
     {streamer: "GronkhTV", amountViewers:6.418, liveSince:0, streamConfig: {title:"Hallo", userId:"", description:"", category:""}},
     {streamer: "AnniTheDuck", amountViewers:3, liveSince:0, streamConfig: {title:"Hallo", userId:"", description:"", category:""}},
     {streamer: "HandOfBlood", amountViewers:7.489, liveSince:0, streamConfig: {title:"Hallo", userId:"", description:"", category:""}},
-    {streamer: "TheRealKnossi", amountViewers:6911.256, liveSince:0, streamConfig: {title:"Hallo", userId:"", description:"", category:""}},
+    {streamer: "TheRealKnossi", amountViewers:13.116, liveSince:0, streamConfig: {title:"Hallo", userId:"", description:"", category:""}},
     {streamer: "EliasN97", amountViewers:21.698, liveSince:0, streamConfig: {title:"Hallo", userId:"", description:"", category:""}},
     {streamer: "BastiGHG", amountViewers:5.842, liveSince:0, streamConfig: {title:"Hallo", userId:"", description:"", category:""}},
     {streamer: "ungespielt", amountViewers:4, liveSince:0, streamConfig: {title:"Hallo", userId:"", description:"", category:""}},
