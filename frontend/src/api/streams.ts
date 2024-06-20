@@ -23,7 +23,7 @@ export interface User {
 }
 
 export async function fetchOnlineStreamers(): Promise<Stream[] | null> {
-    const response = await fetch("http://localhost:8080/api/streams", {
+    const response = await fetch("http://localhost:7457/api/streams", {
         method: "GET"
     })
 

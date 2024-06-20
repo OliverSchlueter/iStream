@@ -19,6 +19,7 @@ body {
     width: 100%;
     display: flex;
     justify-content: space-between;
+    cursor: pointer;
 }
 
 .streamer:hover {
@@ -28,7 +29,7 @@ body {
 
 .sidebar {
     max-width: 200px;
-    height: 100vh;
+    height: calc(100vh - 50px);
     border-right: 1px #fc7303 solid;
     padding: 10px;
 }

@@ -12,7 +12,7 @@ import { Stream, fetchOnlineStreamers } from '../api/streams';
   styleUrl: './landingpage.component.css'
 })
 export class LandingpageComponent {
-  StreamerHome: Stream[] = [
+  StreamerHome: Stream[] | null = [
     {streamer: "Trymacs", amountViewers:69, liveSince:0, streamConfig: {title:"Hallo", userId:"", description:"", category:""}},
     {streamer: "Trymacs", amountViewers:69, liveSince:0, streamConfig: {title:"Hallo", userId:"", description:"", category:""}},
     {streamer: "Trymacs", amountViewers:69, liveSince:0, streamConfig: {title:"Hallo", userId:"", description:"", category:""}},
@@ -26,11 +26,11 @@ export class LandingpageComponent {
     {streamer: "Trymacs", amountViewers:69, liveSince:0, streamConfig: {title:"Hallo", userId:"", description:"", category:""}},
       ];
 
-      streamer: Stream[] = [];
+      streamer: Stream[] | null = [];
       constructor() {
         fetchOnlineStreamers().then((streamers) => {
             this.streamer = streamers;
-            this.streamer.push(...this.StreamerHome);
+            this.streamer!.push(...this.StreamerHome!);
         });
     }
     
