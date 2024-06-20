@@ -1,53 +1,62 @@
+
 :host(app-landingpage) {
-    min-width: calc(100% - 200px);
+  min-width: calc(100% - 200px);
 }
 
 .StreamGroß {
-   height: 350px;
-   min-width: 100%;
-   object-fit: cover;
-   border-bottom: #fc7303 1px solid;
+  height: 350px;
+  min-width: 100%;
+  object-fit: cover;
+  border-bottom: #fc7303 1px solid;
+  box-shadow: 0 0 30px 3px rgba(252, 115, 3, 0.73);
 }
 
 .Titlepage {
-    text-align: center;
-    margin-top: 50px;
+  text-align: center;
+  margin-top: 50px;
 }
 
 .picture {
-    height: 169px;
-    width: 300px;
-    background-color: rgb(61, 30, 1);
-    margin-top: 20px;
+  height: 169px;
+  width: 300px;
+  background-color: rgb(32, 17, 0);
+  border-radius: 10px;
+  transition: box-shadow .2s;
+}
+
+.streamer:hover .picture {
+  box-shadow: 0 0 15px 3px rgba(252, 115, 3, 0.73);
 }
 
 .bottom {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
+  color: #bdbdbd;
 }
 
 .streamers {
-    margin-left: 50px;
+  margin-left: 50px;
 }
 
 .streamer {
-    float: left; 
-    margin-right: 20px;
-    font-size: large;
-    width: 300px;
-    cursor: pointer;
+  float: left;
+  margin-right: 20px;
+  margin-top: 50px;
+  font-size: large;
+  width: 300px;
+  cursor: pointer;
 }
 
-.streamer:hover .streamer-name {
-     color: #fc7303;
-    }
+.streamer:hover .bottom {
+  color: white;
+}
 
 .streamer-name {
-    max-width: min-content;
+  max-width: min-content;
 }
 
 .viewer {
-    font-size: medium;
-    max-width: min-content;
-    margin-bottom: 5px;
+  font-size: medium;
+  max-width: min-content;
+  margin-bottom: 5px;
 }

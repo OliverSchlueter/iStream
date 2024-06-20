@@ -24,6 +24,10 @@ export class LandingpageComponent {
     {streamer: "Trymacs", amountViewers:69, liveSince:0, streamConfig: {title:"Hallo", userId:"", description:"", category:""}},
     {streamer: "Trymacs", amountViewers:69, liveSince:0, streamConfig: {title:"Hallo", userId:"", description:"", category:""}},
     {streamer: "Trymacs", amountViewers:69, liveSince:0, streamConfig: {title:"Hallo", userId:"", description:"", category:""}},
+    {streamer: "Trymacs", amountViewers:69, liveSince:0, streamConfig: {title:"Hallo", userId:"", description:"", category:""}},
+    {streamer: "Trymacs", amountViewers:69, liveSince:0, streamConfig: {title:"Hallo", userId:"", description:"", category:""}},
+    {streamer: "Trymacs", amountViewers:69, liveSince:0, streamConfig: {title:"Hallo", userId:"", description:"", category:""}},
+    {streamer: "Trymacs", amountViewers:69, liveSince:0, streamConfig: {title:"Hallo", userId:"", description:"", category:""}},
       ];
 
       streamer: Stream[] | null = [];

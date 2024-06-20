@@ -1,0 +1,9 @@
+.Test {
+    width: 1900px;
+}
+
+
+
+:host(app-watchview) {
+
+}
