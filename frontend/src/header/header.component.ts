@@ -20,5 +20,6 @@ export class HeaderComponent {
   public async logout(){
     localStorage.removeItem("username");
     localStorage.removeItem("password");
+    window.location.assign("/")
   }
 }

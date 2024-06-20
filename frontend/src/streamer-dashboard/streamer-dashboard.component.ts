@@ -41,6 +41,10 @@ export class StreamerDashboardComponent {
       mins -= 100
     }
 
-    return Date.now() -  hours + ":" + mins + ":" + secs
+    return hours + ":" + mins + ":" + secs
+  }
+
+  public getLiveSinceMS(){
+    return Date.now() - this.stream?.liveSince!
   }
 }
