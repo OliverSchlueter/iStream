@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {fetchOnlineStreamers, fetchUser, User} from "../api/streams";
 
 @Component({
   selector: 'app-streamer-dashboard',
@@ -9,8 +10,11 @@ import { Component } from '@angular/core';
 })
 export class StreamerDashboardComponent {
 
-  public sumFollower(){
+  user: User | null = null;
 
+  constructor() {
+    fetchUser(localStorage.getItem('username')!).then((user) => {
+      this.user = user
+    })
   }
-
 }

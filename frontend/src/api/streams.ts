@@ -36,12 +36,25 @@ export async function fetchOnlineStreamers(): Promise<Stream[] | null> {
 }
 
 export async function fetchUser(username: string): Promise<User | null> {
-  const response = await fetch("http://localhost:7457/api/user/" + username, {
+  const response = await fetch("http://localhost:7457/api/users/" + username, {
     method: "GET"
   })
 
   if (!response.ok) {
     console.error("Error fetching user")
+    return null;
+  }
+
+  return response.json();
+}
+
+export async function fetchStream(username: string): Promise<Stream | null> {
+  const response = await fetch("http://localhost:7457/api/streams/" + username, {
+    method: "GET"
+  })
+
+  if (!response.ok) {
+    console.error("Error fetching stream")
     return null;
   }
 
