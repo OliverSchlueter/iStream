@@ -12,7 +12,7 @@ import { Stream, fetchOnlineStreamers } from "../api/streams";
   styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent {
-  streamer: Stream[] = [];
+  streamer: Stream[] | null = [];
 
   streamerdummy = [
     {streamer: "Trymacs"},
@@ -29,7 +29,7 @@ export class SidebarComponent {
 
   public streamerlink(s: any) {
     window.postMessage({
-      type: "watch", 
+      type: "watch",
       streamer: s
     })
     console.log("hallo")
