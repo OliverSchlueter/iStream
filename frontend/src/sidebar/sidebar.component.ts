@@ -18,7 +18,7 @@ export class SidebarComponent {
     {streamer: "Trymacs"},
     {streamer: "Monte"},
     {streamer: "Froids"},
-    {streamer: "Test"},
+    {streamer: "Drache"},
   ];
 
   constructor() {

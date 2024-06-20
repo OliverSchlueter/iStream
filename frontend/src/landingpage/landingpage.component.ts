@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {RouterLink} from "@angular/router";
 import {NgFor, NgForOf} from "@angular/common";
+import { Stream, fetchOnlineStreamers } from '../api/streams';
 
 
 @Component({
@@ -11,18 +12,33 @@ import {NgFor, NgForOf} from "@angular/common";
   styleUrl: './landingpage.component.css'
 })
 export class LandingpageComponent {
-  StreamerHome = [
-    {streamer: "Trymacs", amountViewers:69, streamConfig: {title:"Hallo"}},
-    {streamer: "Monte", amountViewers:70, streamConfig: {title:"Hallo"}},
-    {streamer: "Drache", amountViewers:71, streamConfig: {title:"Hallo"}},
-    {streamer: "Mango", amountViewers:72, streamConfig: {title:"Hallo"}},
-    {streamer: "Yavis", amountViewers:73, streamConfig: {title:"Hallo"}},
-    {streamer: "IBlali", amountViewers:74, streamConfig: {title:"Hallo"}},
-    {streamer: "TryMacs", amountViewers:75, streamConfig: {title:"Hallo"}},
-    {streamer: "LLLL", amountViewers:76, streamConfig: {title:"Hallo"}},
-    {streamer: "Love", amountViewers:77, streamConfig: {title:"Hallo"}},
-    {streamer: "Killer", amountViewers:78, streamConfig: {title:"Hallo"}},
-    {streamer: "GubiFortnite", amountViewers:79, streamConfig: {title:"Hallo"}},
-
+  StreamerHome: Stream[] = [
+    {streamer: "Trymacs", amountViewers:69, liveSince:0, streamConfig: {title:"Hallo", userId:"", description:"", category:""}},
+    {streamer: "Trymacs", amountViewers:69, liveSince:0, streamConfig: {title:"Hallo", userId:"", description:"", category:""}},
+    {streamer: "Trymacs", amountViewers:69, liveSince:0, streamConfig: {title:"Hallo", userId:"", description:"", category:""}},
+    {streamer: "Trymacs", amountViewers:69, liveSince:0, streamConfig: {title:"Hallo", userId:"", description:"", category:""}},
+    {streamer: "Trymacs", amountViewers:69, liveSince:0, streamConfig: {title:"Hallo", userId:"", description:"", category:""}},
+    {streamer: "Trymacs", amountViewers:69, liveSince:0, streamConfig: {title:"Hallo", userId:"", description:"", category:""}},
+    {streamer: "Trymacs", amountViewers:69, liveSince:0, streamConfig: {title:"Hallo", userId:"", description:"", category:""}},
+    {streamer: "Trymacs", amountViewers:69, liveSince:0, streamConfig: {title:"Hallo", userId:"", description:"", category:""}},
+    {streamer: "Trymacs", amountViewers:69, liveSince:0, streamConfig: {title:"Hallo", userId:"", description:"", category:""}},
+    {streamer: "Trymacs", amountViewers:69, liveSince:0, streamConfig: {title:"Hallo", userId:"", description:"", category:""}},
+    {streamer: "Trymacs", amountViewers:69, liveSince:0, streamConfig: {title:"Hallo", userId:"", description:"", category:""}},
       ];
+
+      streamer: Stream[] = [];
+      constructor() {
+        fetchOnlineStreamers().then((streamers) => {
+            this.streamer = streamers;
+            this.streamer.push(...this.StreamerHome);
+        });
+    }
+    
+      public streamerlink(s: any) {
+        window.postMessage({
+          type: "watch", 
+          streamer: s
+        })
+        console.log("hallo")
+      }
 }

@@ -5,7 +5,8 @@
 .StreamGroß {
    height: 350px;
    min-width: 100%;
-   background-color: blue;
+   object-fit: cover;
+   border-bottom: #fc7303 1px solid;
 }
 
 .Titlepage {
@@ -16,13 +17,13 @@
 .picture {
     height: 169px;
     width: 300px;
-    background-color: blue;
+    background-color: rgb(61, 30, 1);
     margin-top: 20px;
 }
 
 .bottom {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
 }
 
 .streamers {
@@ -33,9 +34,19 @@
     float: left; 
     margin-right: 20px;
     font-size: large;
+    width: 300px;
 }
 
+.streamer:hover .streamer-name {
+     color: #fc7303;
+    }
+
+.streamer-name {
+    max-width: min-content;
+}
 
 .viewer {
     font-size: medium;
+    max-width: min-content;
+    margin-bottom: 5px;
 }

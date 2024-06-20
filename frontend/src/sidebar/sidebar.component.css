@@ -29,8 +29,7 @@ body {
 .sidebar {
     max-width: 200px;
     height: 100vh;
-    border-right: 1px rgb(255, 255, 255) solid;
+    border-right: 1px #fc7303 solid;
     padding: 10px;
 }
     
- 
