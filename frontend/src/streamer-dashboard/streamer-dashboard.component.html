@@ -1,1 +1,12 @@
-<p>streamer-dashboard works!</p>
+<ng-container class="previewStream">
+  <label>Preview</label>
+  <label>Title</label>
+  <input>
+  <label>Category</label>
+  <input>
+  <button>Start stream</button>
+  <button>Stop stream</button>
+  <p>{{user!.followers.length}}</p>
+  <p>{{stream!.amountViewers}}</p>
+  <p>{{calculateStreamTime(getLiveSinceMS())}}</p>
+</ng-container>
