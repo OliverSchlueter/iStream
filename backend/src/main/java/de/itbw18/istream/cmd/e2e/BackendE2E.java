@@ -23,17 +23,20 @@ public class BackendE2E {
     private StreamStore streamStore;
 
     public void init() {
+        streamConfigStore = new StreamConfigStoreImpl(new StreamConfigDatabase_Fake());
+        streamConfigStore.setup();
+
         userStore = new UserStoreImpl(new UserDatabase_Fake(), streamConfigStore);
         userStore.setup();
+
+        streamStore = new StreamStoreImpl();
+
         UserHandler userHandler = new UserHandler(userStore);
 
         UserAccessHandler userAccessHandler = new UserAccessHandler(userStore);
 
-        streamConfigStore = new StreamConfigStoreImpl(new StreamConfigDatabase_Fake());
-        streamConfigStore.setup();
         StreamConfigHandler streamConfigHandler = new StreamConfigHandler(streamConfigStore, userAccessHandler);
 
-        streamStore = new StreamStoreImpl();
         StreamHandler streamHandler = new StreamHandler(streamStore, userStore, userAccessHandler);
 
         LiveHandler liveHandler = new LiveHandler(userAccessHandler, streamStore);

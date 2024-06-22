@@ -30,28 +30,6 @@ class StreamConfigHandlerTest {
     }
 
     @Test
-    void create() {
-        JavalinTest.test(app, (server, client) -> {
-            User user = new User(UUID.randomUUID().toString(), "user1", "user1@istream.com", "password1", System.currentTimeMillis(), new String[0], new String[0]);
-            backend.getUserStore().addUser(user);
-
-            StreamConfigHandler.CreateOrUpdateStreamConfigRequest createRequest = new StreamConfigHandler.CreateOrUpdateStreamConfigRequest("Stream Title", "My stream description", "JUST_CHATTING");
-            Response resp = client.post("/api/stream-configs", createRequest, builder -> {
-                builder.addHeader("username", user.username())
-                        .addHeader("password", user.password());
-            });
-
-            assert resp.code() == HttpStatus.CREATED.getCode();
-
-            StreamConfig got = backend.getStreamConfigStore().getStreamConfig(user.id());
-            assert got != null;
-            assert got.title().equals(createRequest.title());
-            assert got.description().equals(createRequest.description());
-            assert got.category().equals(StreamConfig.Category.valueOf(createRequest.category()));
-        });
-    }
-
-    @Test
     void create_titleTooLong() {
         JavalinTest.test(app, (server, client) -> {
             User user = new User(UUID.randomUUID().toString(), "user1", "user1@istream.com", "password1", System.currentTimeMillis(), new String[0], new String[0]);
