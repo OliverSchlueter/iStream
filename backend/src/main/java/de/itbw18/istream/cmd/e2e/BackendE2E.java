@@ -23,7 +23,7 @@ public class BackendE2E {
     private StreamStore streamStore;
 
     public void init() {
-        userStore = new UserStoreImpl(new UserDatabase_Fake());
+        userStore = new UserStoreImpl(new UserDatabase_Fake(), streamConfigStore);
         userStore.setup();
         UserHandler userHandler = new UserHandler(userStore);
 
