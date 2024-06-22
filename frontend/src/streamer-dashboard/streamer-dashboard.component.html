@@ -7,12 +7,15 @@
   <label>Title</label>
   <input [(ngModel)]="title"><br/>
   <label>Category</label>
-  <input [(ngModel)]="category"><br/>
+  <select [(ngModel)]="category">
+    <option value="MUSIC">Music</option>
+  </select><br/>
+<!--  <input [(ngModel)]="category"><br/>-->
   <label>Description</label>
   <input [(ngModel)]="description"><br/>
   <button (click)="safeConfig()">save</button>
-  <button *ngIf="stream==null">Start stream</button>
-  <button *ngIf="stream!=null">Stop stream</button>
+  <button (click)="startStream()" *ngIf="stream==null">Start stream</button>
+  <button (click)="stopStream()" *ngIf="stream!=null">Stop stream</button>
   <p>{{user!.followers.length}}</p>
   <p>{{stream!.amountViewers}}</p>
   <p>{{calculateStreamTime(getLiveSinceMS())}}</p>

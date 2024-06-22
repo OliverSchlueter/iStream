@@ -25,9 +25,9 @@ export class StreamerDashboardComponent {
   constructor() {
     fetchUser(localStorage.getItem('username')!).then((user) => {
       this.user = user
-    })
-    fetchStream(localStorage.getItem('username')!).then((stream) => {
-      this.stream = stream
+      fetchStream(this.user?.id!).then((stream) => {
+        this.stream = stream
+      })
     })
   }
 
@@ -57,13 +57,17 @@ export class StreamerDashboardComponent {
   }
 
   public async safeConfig(){
-      const response = await fetch("http://localhost:7457/api/streams/" + this.user?.username, {
+      const response = await fetch("http://localhost:7457/api/stream-configs/" + this.user?.id, {
         method: "PATCH",
         body: JSON.stringify({
-          title: "",
-          category: "",
-          description: ""
-        })
+          title: this.title,
+          category: this.category,
+          description: this.description
+        }),
+        headers:{
+          username: localStorage.getItem('username')!,
+          password: localStorage.getItem('password')!
+        }
       })
 
       if (!response.ok) {
@@ -73,4 +77,37 @@ export class StreamerDashboardComponent {
 
       return response.json();
     }
+
+    public async startStream(){
+      const response = await fetch("http://localhost:7457/api/streams/", {
+        method: "POST",
+        body: JSON.stringify({
+          streamer: this.user?.id
+        }),
+        headers:{
+          username: localStorage.getItem('username')!,
+          password: localStorage.getItem('password')!
+        }
+      })
+
+      if (!response.ok) {
+        console.error("Error fetching stream")
+    }
+}
+  public async stopStream(){
+    const response = await fetch("http://localhost:7457/api/streams/" + this.user?.id, {
+      method: "DELETE",
+      body: JSON.stringify({
+        streamer: this.user?.id
+      }),
+      headers:{
+        username: localStorage.getItem('username')!,
+        password: localStorage.getItem('password')!
+      }
+    })
+
+    if (!response.ok) {
+      console.error("Error fetching stream")
+    }
+  }
 }
