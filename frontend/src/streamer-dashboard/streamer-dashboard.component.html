@@ -1,11 +1,18 @@
 <div class="previewStream">
-  <label>Preview</label>
+  <p>Preview</p>
+<!--Vorschau-->
+</div>
+
+<div class="config">
   <label>Title</label>
-  <input>
+  <input [(ngModel)]="title"><br/>
   <label>Category</label>
-  <input>
-  <button>Start stream</button>
-  <button>Stop stream</button>
+  <input [(ngModel)]="category"><br/>
+  <label>Description</label>
+  <input [(ngModel)]="description"><br/>
+  <button (click)="safeConfig()">save</button>
+  <button *ngIf="stream==null">Start stream</button>
+  <button *ngIf="stream!=null">Stop stream</button>
   <p>{{user!.followers.length}}</p>
   <p>{{stream!.amountViewers}}</p>
   <p>{{calculateStreamTime(getLiveSinceMS())}}</p>

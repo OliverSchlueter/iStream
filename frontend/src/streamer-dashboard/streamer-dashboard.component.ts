@@ -1,11 +1,16 @@
 import {Component} from '@angular/core';
 import {fetchOnlineStreamers, fetchStream, fetchUser, Stream, User} from "../api/streams";
 import {min} from "rxjs";
+import {NgIf} from "@angular/common";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-streamer-dashboard',
   standalone: true,
-  imports: [],
+  imports: [
+    NgIf,
+    FormsModule
+  ],
   templateUrl: './streamer-dashboard.component.html',
   styleUrl: './streamer-dashboard.component.css'
 })
@@ -13,6 +18,9 @@ export class StreamerDashboardComponent {
 
   user: User | null = null;
   stream: Stream | null = null;
+  title: string = "";
+  description: string = "";
+  category: string = "";
 
   constructor() {
     fetchUser(localStorage.getItem('username')!).then((user) => {
@@ -47,4 +55,22 @@ export class StreamerDashboardComponent {
   public getLiveSinceMS(){
     return Date.now() - this.stream?.liveSince!
   }
+
+  public async safeConfig(){
+      const response = await fetch("http://localhost:7457/api/streams/" + this.user?.username, {
+        method: "PATCH",
+        body: JSON.stringify({
+          title: "",
+          category: "",
+          description: ""
+        })
+      })
+
+      if (!response.ok) {
+        console.error("Error fetching stream")
+        return null;
+      }
+
+      return response.json();
+    }
 }
