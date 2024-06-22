@@ -36,17 +36,20 @@ public class Backend {
             return;
         }
 
-        UserStoreImpl userStore = new UserStoreImpl(new UserDatabase_MySql(sqlConnector));
-        userStore.setup();
-        UserHandler userHandler = new UserHandler(userStore);
-
-        UserAccessHandler userAccessHandler = new UserAccessHandler(userStore);
 
         StreamConfigStore streamConfigStore = new StreamConfigStoreImpl(new StreamConfigDatabase_MySql(sqlConnector));
         streamConfigStore.setup();
-        StreamConfigHandler streamConfigHandler = new StreamConfigHandler(streamConfigStore, userAccessHandler);
 
         StreamStore streamStore = new StreamStoreImpl();
+        
+        UserStoreImpl userStore = new UserStoreImpl(new UserDatabase_MySql(sqlConnector), streamConfigStore);
+        userStore.setup();
+
+        UserAccessHandler userAccessHandler = new UserAccessHandler(userStore);
+
+        StreamConfigHandler streamConfigHandler = new StreamConfigHandler(streamConfigStore, userAccessHandler);
+
+        UserHandler userHandler = new UserHandler(userStore);
         StreamHandler streamHandler = new StreamHandler(streamStore, userStore, userAccessHandler);
 
         LiveHandler liveHandler = new LiveHandler(userAccessHandler, streamStore);

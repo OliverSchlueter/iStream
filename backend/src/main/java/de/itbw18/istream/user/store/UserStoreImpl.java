@@ -1,5 +1,7 @@
 package de.itbw18.istream.user.store;
 
+import de.itbw18.istream.streamconfig.StreamConfig;
+import de.itbw18.istream.streamconfig.store.StreamConfigStore;
 import de.itbw18.istream.user.User;
 import de.itbw18.istream.user.store.database.UserDatabase;
 
@@ -9,8 +11,11 @@ public class UserStoreImpl implements UserStore {
 
     private final UserDatabase db;
 
-    public UserStoreImpl(UserDatabase db) {
+    private final StreamConfigStore streamConfigStore;
+
+    public UserStoreImpl(UserDatabase db, StreamConfigStore streamConfigStore) {
         this.db = db;
+        this.streamConfigStore = streamConfigStore;
     }
 
     @Override
@@ -40,6 +45,7 @@ public class UserStoreImpl implements UserStore {
 
     @Override
     public boolean addUser(User user) {
+        streamConfigStore.createStreamConfig(new StreamConfig(user.id(), "My awesome stream", "My Stream Description", StreamConfig.Category.JUST_CHATTING));
         return db.addUser(user);
     }
 
