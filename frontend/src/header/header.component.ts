@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {RouterLink} from "@angular/router";
 import {NgIf} from "@angular/common";
+import {LoginComponent} from "../login/login.component";
 
 @Component({
   selector: 'app-header',

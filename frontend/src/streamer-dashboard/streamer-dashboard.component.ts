@@ -3,6 +3,7 @@ import {fetchOnlineStreamers, fetchStream, fetchUser, Stream, User} from "../api
 import {min} from "rxjs";
 import {NgIf} from "@angular/common";
 import {FormsModule} from "@angular/forms";
+import {captureAndSend, receiveData} from "../api/livestream";
 
 @Component({
   selector: 'app-streamer-dashboard',
@@ -58,7 +59,7 @@ export class StreamerDashboardComponent {
 
   public async safeConfig(){
       const response = await fetch("http://localhost:7457/api/stream-configs/" + this.user?.id, {
-        method: "PATCH",
+        method: "PUT",
         body: JSON.stringify({
           title: this.title,
           category: this.category,
@@ -93,6 +94,8 @@ export class StreamerDashboardComponent {
       if (!response.ok) {
         console.error("Error fetching stream")
     }
+
+      this.startLiveStream()
 }
   public async stopStream(){
     const response = await fetch("http://localhost:7457/api/streams/" + this.user?.id, {
@@ -109,5 +112,15 @@ export class StreamerDashboardComponent {
     if (!response.ok) {
       console.error("Error fetching stream")
     }
+  }
+
+  async watchLivestream(){
+    await receiveData(document.getElementById("stream") as HTMLVideoElement, "ws://localhost:8080/api/streams/" + localStorage.getItem("user") + "/live")
+    console.log("start")
+  }
+
+  async startLiveStream() {
+    await captureAndSend("ws://localhost:8080/api/streams/" + localStorage.getItem("user") + "/live");
+    await receiveData(document.getElementById('stream') as HTMLVideoElement, "ws://localhost:8080/api/streams/" + localStorage.getItem("user") + "/live");
   }
 }
