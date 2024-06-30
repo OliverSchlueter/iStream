@@ -6,7 +6,7 @@
 .stream-bottom {
     width: calc(100vw - 565px);
     height: 100vh;
-    background-color: #13e800;
+    background-color: #010012;
     overflow-y: scroll;
     scrollbar-width: none;
 }
@@ -17,18 +17,14 @@
     background-color: #c8ff00;
 }
 
-
-
 .bottom {
-    width: 100%;
     height: 269px;
-    background-color: #e84900;
+    background-color: #010012;
     padding-top: 10px;
-    padding-left: 10px;
 }
 
 .Chat {
-    background-color: aqua;
+    background-color: rgb(56, 56, 56);
     width: 365px;
     height: calc(100vh - 80px);
     scrollbar-width: none;
@@ -39,12 +35,14 @@
         height: 70px;
         width: 70px;
         border-radius: 100%;
+        padding-left: 10px;
 }
 
 .info {
-    height: 100px;
+    height: 83px;
     width: 100%;
     display: flex;
+    border-bottom: dotted 1px #fc7303;
 }
 .pic-info {
     height: 100%;
@@ -69,4 +67,40 @@
     display: flex;
     justify-content: end;
     width: 100%;
+    padding-right: 10px;
+}
+
+.eye-viewer {
+    display: flex;
+    margin-top: 26px;
+}
+
+.eye {
+    height:46%;
+    margin-right: 5px;
+}
+
+.amountviewers {
+    margin-top: 3px;
+    font-size: large;
+}
+
+.follower {
+    background-color: #131313;
+    border-color: #fc7303;
+    color: white;
+    font-size: 16px;
+    height: 40px;
+    width: 70px;
+}
+
+.follower:hover {
+    box-shadow: 0 0 15px 3px rgba(252, 115, 3, 0.73);
+}
+
+.beschreibung {
+    margin-top: 20px;
+    padding-left: 97px;
+    padding-right: 97px;
+    
 }
