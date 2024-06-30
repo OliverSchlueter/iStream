@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
-import {fetchOnlineStreamers, fetchStream, fetchUser, Stream, User} from "../api/streams";
-import {min} from "rxjs";
+import {fetchStream, fetchUser, Stream, User} from "../api/streams";
 import {NgIf} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {captureAndSend, receiveData} from "../api/livestream";
@@ -53,57 +52,58 @@ export class StreamerDashboardComponent {
     return hours + ":" + mins + ":" + secs
   }
 
-  public getLiveSinceMS(){
+  public getLiveSinceMS() {
     return Date.now() - this.stream?.liveSince!
   }
 
-  public async safeConfig(){
-      const response = await fetch("http://localhost:7457/api/stream-configs/" + this.user?.id, {
-        method: "PUT",
-        body: JSON.stringify({
-          title: this.title,
-          category: this.category,
-          description: this.description
-        }),
-        headers:{
-          username: localStorage.getItem('username')!,
-          password: localStorage.getItem('password')!
-        }
-      })
-
-      if (!response.ok) {
-        console.error("Error fetching stream")
-        return null;
+  public async safeConfig() {
+    const response = await fetch("http://localhost:7457/api/stream-configs/" + this.user?.id, {
+      method: "PATCH",
+      body: JSON.stringify({
+        title: this.title,
+        category: this.category,
+        description: this.description
+      }),
+      headers: {
+        username: localStorage.getItem('username')!,
+        password: localStorage.getItem('password')!
       }
+    })
 
-      return response.json();
+    if (!response.ok) {
+      console.error("Error fetching stream")
+      return null;
     }
 
-    public async startStream(){
-      const response = await fetch("http://localhost:7457/api/streams/", {
-        method: "POST",
-        body: JSON.stringify({
-          streamer: this.user?.id
-        }),
-        headers:{
-          username: localStorage.getItem('username')!,
-          password: localStorage.getItem('password')!
-        }
-      })
+    return response.json();
+  }
 
-      if (!response.ok) {
-        console.error("Error fetching stream")
+  public async startStream() {
+    const response = await fetch("http://localhost:7457/api/streams/", {
+      method: "POST",
+      body: JSON.stringify({
+        streamer: this.user?.id
+      }),
+      headers: {
+        username: localStorage.getItem('username')!,
+        password: localStorage.getItem('password')!
+      }
+    })
+
+    if (!response.ok) {
+      console.error("Error fetching stream")
     }
 
-      this.startLiveStream()
-}
-  public async stopStream(){
+    this.startLiveStream()
+  }
+
+  public async stopStream() {
     const response = await fetch("http://localhost:7457/api/streams/" + this.user?.id, {
       method: "DELETE",
       body: JSON.stringify({
         streamer: this.user?.id
       }),
-      headers:{
+      headers: {
         username: localStorage.getItem('username')!,
         password: localStorage.getItem('password')!
       }
@@ -114,13 +114,8 @@ export class StreamerDashboardComponent {
     }
   }
 
-  async watchLivestream(){
-    await receiveData(document.getElementById("stream") as HTMLVideoElement, "ws://localhost:8080/api/streams/" + localStorage.getItem("user") + "/live")
-    console.log("start")
-  }
-
   async startLiveStream() {
-    await captureAndSend("ws://localhost:8080/api/streams/" + localStorage.getItem("user") + "/live");
-    await receiveData(document.getElementById('stream') as HTMLVideoElement, "ws://localhost:8080/api/streams/" + localStorage.getItem("user") + "/live");
+    await captureAndSend(`ws://localhost:7457/api/streams/${this.user?.id}/live?username=${this.user?.username}&password=${this.user?.password}`);
+    await receiveData(document.getElementById('stream') as HTMLVideoElement, `ws://localhost:7457/api/streams/${this.user?.id}/live?username=${this.user?.username}&password=${this.user?.password}`);
   }
 }
