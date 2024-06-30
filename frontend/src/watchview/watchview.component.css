@@ -1,20 +1,72 @@
 .page {
-    height: 1000px;
-    width: 1665px;
-    background-color: #010012;
+    width: 100%;
+    display: flex;
 }
 
-.stream.bottom {
-    width: 500px;
-    float: left;
+.stream-bottom {
+    width: calc(100vw - 565px);
+    height: 100vh;
+    background-color: #13e800;
+    overflow-y: scroll;
+    scrollbar-width: none;
 }
 
-.Test {
-    width: 1250px;
-    height: 703px;
+.stream {
+    width: 100%;
+    height: 731px;
+    background-color: #c8ff00;
 }
 
-.Test1 {
-    width: 1250px;
-    height: 500px;
+
+
+.bottom {
+    width: 100%;
+    height: 269px;
+    background-color: #e84900;
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
+.Chat {
+    background-color: aqua;
+    width: 365px;
+    height: calc(100vh - 80px);
+    scrollbar-width: none;
+    overflow: scroll;
+}
+
+.pic {
+        height: 70px;
+        width: 70px;
+        border-radius: 100%;
+}
+
+.info {
+    height: 100px;
+    width: 100%;
+    display: flex;
+}
+.pic-info {
+    height: 100%;
+    width: max-content;
+    display: flex;
+}
+
+.streamer-name{
+    font-size:30px;
+}
+
+.name-titel {
+    margin-left: 15px;
+}
+
+.titel {
+    font-size: 20px;
+    margin-top: 3px;
+}
+
+.buttons-viewer {
+    display: flex;
+    justify-content: end;
+    width: 100%;
 }
