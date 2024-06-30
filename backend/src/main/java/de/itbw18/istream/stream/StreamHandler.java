@@ -83,7 +83,15 @@ public class StreamHandler implements CrudHandler {
             return;
         }
 
-        context.json(streamStore.getStream(streamer));
+        Stream stream = streamStore.getStream(streamer);
+
+        if (stream == null) {
+            context.status(HttpStatus.NOT_FOUND);
+            context.result("Stream not found");
+            return;
+        }
+
+        context.json(stream);
     }
 
     public void update(@NotNull Context context, @NotNull String id) {

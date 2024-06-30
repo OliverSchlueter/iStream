@@ -35,7 +35,7 @@ public class LiveHandler extends WebsocketHandler {
         streamSessions.add(ctx.session);
         sessions.put(streamId, streamSessions);
 
-        streamStore.updateViewers(streamId, streamSessions.size());
+//        streamStore.updateViewers(streamId, streamSessions.size());
 
         System.out.println("Connected " + ctx.sessionId() + " " + streamId);
     }
@@ -47,7 +47,7 @@ public class LiveHandler extends WebsocketHandler {
         List<Session> streamSessions = sessions.getOrDefault(streamId, new ArrayList<>());
         streamSessions.remove(ctx.session);
 
-        streamStore.updateViewers(streamId, streamSessions.size());
+//        streamStore.updateViewers(streamId, streamSessions.size());
 
         System.out.println("Closed " + ctx.sessionId() + " " + ctx.status() + " " + ctx.reason());
     }

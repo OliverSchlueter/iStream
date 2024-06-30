@@ -95,7 +95,7 @@ public class StreamConfigHandler implements CrudHandler {
 
         StreamConfig streamConfig = streamConfigStore.getStreamConfig(id);
         if (streamConfig == null) {
-            context.status(HttpStatus.NOT_FOUND);
+            streamConfig = new StreamConfig(user.id(), "", "", StreamConfig.Category.JUST_CHATTING);
             return;
         }
 
