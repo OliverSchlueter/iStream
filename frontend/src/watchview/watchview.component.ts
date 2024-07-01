@@ -15,6 +15,7 @@ export class WatchviewComponent {
   streamConfig: StreamConfig | null = null;
   stream: Stream | null = null;
   user: User | null = null;
+  streamTime: string = "";
 
   constructor() {
     window.addEventListener(
@@ -38,12 +39,17 @@ export class WatchviewComponent {
       },
       false,
     );
+
+    setInterval(()=>{
+      this.streamTime = this.calculateStreamTime(this.getLiveSinceMS())
+    },100)
   }
 
   async watchLivestream() {
     await receiveData(document.getElementById('stream') as HTMLVideoElement, `ws://localhost:7457/api/streams/${this.streamerId}/live`);
     console.log("start")
   }
+
 
   public calculateStreamTime(ms: number) {
     let secs = 0
@@ -52,7 +58,7 @@ export class WatchviewComponent {
 
     while (ms > 1000) {
       secs++
-      ms -= 100
+      ms -= 1000
     }
     while (secs > 60) {
       mins++
@@ -60,7 +66,7 @@ export class WatchviewComponent {
     }
     while (mins > 60) {
       hours++
-      mins -= 100
+      mins -= 60
     }
 
     return hours + ":" + mins + ":" + secs
