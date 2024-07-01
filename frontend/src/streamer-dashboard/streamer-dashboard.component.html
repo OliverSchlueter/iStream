@@ -1,7 +1,7 @@
 <div class="previewStream">
   <p>Preview</p>
-  <video id="stream"></video>
-<!--Vorschau-->
+  <video autoplay id="stream"></video>
+  <!--Vorschau-->
 </div>
 
 <div class="config">
@@ -29,7 +29,7 @@
   <button (click)="safeConfig()">save</button>
   <button (click)="startStream()" *ngIf="stream==null">Start stream</button>
   <button (click)="stopStream()" *ngIf="stream!=null">Stop stream</button>
-  <p>{{user!.followers.length}}</p>
-  <p>{{stream!.amountViewers}}</p>
-  <p>{{calculateStreamTime(getLiveSinceMS())}}</p>
+  <p>{{ user!.followers.length }}</p>
+  <p>{{ stream!.amountViewers }}</p>
+  <p>{{ calculateStreamTime(getLiveSinceMS()) }}</p>
 </div>

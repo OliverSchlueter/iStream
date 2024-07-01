@@ -95,6 +95,8 @@ export class StreamerDashboardComponent {
       console.error("Error fetching stream")
     }
 
+    this.stream = await fetchStream(this.user?.id!);
+
     this.startLiveStream()
   }
 
@@ -122,7 +124,7 @@ export class StreamerDashboardComponent {
     await receiveData(document.getElementById('stream') as HTMLVideoElement, `ws://localhost:7457/api/streams/${this.user?.id}/live?username=${this.user?.username}&password=${this.user?.password}`);
   }
 
-  async stopLivestream(){
+  async stopLivestream() {
     location.reload()
   }
 }

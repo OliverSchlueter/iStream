@@ -1,55 +1,71 @@
-export async function captureAndSend(url: string) {
+export async function captureAndSend(url: string): Promise<void> {
   const socket = new WebSocket(url);
-  socket.onopen = function (event) {
+  socket.onopen = function (event: Event) {
     console.log('WebSocket connection for sending data opened');
   };
 
-  socket.onerror = function (error) {
+  socket.onerror = function (error: Event) {
     console.error('WebSocket error for sending data:', error);
   };
 
-  const stream = await navigator.mediaDevices.getDisplayMedia({
-    video: {
-      width: {ideal: 1920},
-      height: {ideal: 1080},
-      frameRate: {ideal: 60},
-    },
-    audio: true
-  });
-
-
-  const mediaRecorder = new MediaRecorder(stream, {
-    mimeType: 'video/webm'
-  });
-
-  // uncomment for local video preview
-  // localVideo.srcObject = stream;
-
-  mediaRecorder.ondataavailable = function (event) {
-    if (event.data.size > 0) {
-      socket.send(event.data);
-      console.log('Data sent to server', event.data);
+  try {
+    let stream: MediaStream;
+    try {
+      stream = await navigator.mediaDevices.getDisplayMedia({
+        video: {
+          width: {ideal: 1920},
+          height: {ideal: 1080},
+          frameRate: {ideal: 60},
+          // cursor: 'always',
+        },
+        audio: true,
+      });
+    } catch (e) {
+      stream = await navigator.mediaDevices.getUserMedia({
+        video: {
+          width: {ideal: 1920},
+          height: {ideal: 1080},
+          frameRate: {ideal: 60},
+          // cursor: 'always',
+        },
+        audio: true,
+      });
     }
-  };
 
-  mediaRecorder.start();
+    const mediaRecorder = new MediaRecorder(stream, {
+      mimeType: 'video/webm',
+    });
 
-  setInterval(() => {
-    mediaRecorder.stop()
-    mediaRecorder.start()
-  }, 1000);
+    // Uncomment for local video preview
+    // const localVideo = document.createElement('video');
+    // localVideo.srcObject = stream;
+    // document.body.appendChild(localVideo);
+
+    mediaRecorder.ondataavailable = function (event: BlobEvent) {
+      if (event.data.size > 0) {
+        socket.send(event.data);
+        console.log('Data sent to server', event.data);
+      }
+    };
+
+    mediaRecorder.start();
+
+    setInterval(() => {
+      mediaRecorder.stop();
+      mediaRecorder.start();
+    }, 1000);
+
+  } catch (error) {
+    console.error('Error capturing display data:', error);
+  }
 }
 
-/*
-    Receive and display the live stream
- */
+let mediaSource: MediaSource | null = null;
 
-let mediaSource: null | MediaSource = null;
-
-export async function receiveData(video: HTMLVideoElement, url: string) {
+export async function receiveData(video: HTMLVideoElement, url: string): Promise<void> {
   const socket = new WebSocket(url);
 
-  socket.onmessage = function (event) {
+  socket.onmessage = function (event: MessageEvent<Blob>) {
     console.log('Data received from server');
     if (!mediaSource) {
       mediaSource = new MediaSource();
@@ -57,27 +73,26 @@ export async function receiveData(video: HTMLVideoElement, url: string) {
       mediaSource.addEventListener('sourceopen', handleSourceOpen);
     }
 
-
     appendBlobToSourceBuffer(event.data);
-  }
-
-  socket.onopen = function (ev) {
-    console.log("connected to websoket")
-  }
+  };
 }
 
-export function handleSourceOpen(event: Event) {
-  //mediaSource = this as MediaSource;
+function handleSourceOpen(this: MediaSource, event: Event): void {
+  console.log('MediaSource opened');
   const mimeCodec = 'video/webm; codecs="vp8"'; // Adjust according to your codec
-  const sourceBuffer = mediaSource!.addSourceBuffer(mimeCodec);
+  const sourceBuffer = this.addSourceBuffer(mimeCodec);
   sourceBuffer.mode = 'sequence';
 }
 
-export function appendBlobToSourceBuffer(blob: Blob) {
-  const sourceBuffer = mediaSource!.sourceBuffers[0];
-  const reader = new FileReader();
-  reader.onload = function (event) {
-    sourceBuffer.appendBuffer(event.target!.result as BufferSource);
-  };
-  reader.readAsArrayBuffer(blob);
+function appendBlobToSourceBuffer(blob: Blob): void {
+  if (mediaSource && mediaSource.sourceBuffers.length > 0) {
+    const sourceBuffer = mediaSource.sourceBuffers[0];
+    const reader = new FileReader();
+    reader.onload = function (event: ProgressEvent<FileReader>) {
+      if (event.target && event.target.result) {
+        sourceBuffer.appendBuffer(event.target.result as ArrayBuffer);
+      }
+    };
+    reader.readAsArrayBuffer(blob);
+  }
 }
