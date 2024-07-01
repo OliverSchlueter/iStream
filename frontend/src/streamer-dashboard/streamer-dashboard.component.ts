@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {fetchStream, fetchUser, Stream, User} from "../api/streams";
+import {fetchStream, fetchUser, Stream, StreamConfig, User} from "../api/streams";
 import {NgIf} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {captureAndSend, receiveData} from "../api/livestream";
@@ -18,6 +18,7 @@ export class StreamerDashboardComponent {
 
   user: User | null = null;
   stream: Stream | null = null;
+  streamconfig: StreamConfig | null = null;
   title: string = "";
   description: string = "";
   category: string = "";
@@ -38,7 +39,7 @@ export class StreamerDashboardComponent {
 
     while (ms > 1000) {
       secs++
-      ms -= 100
+      ms -= 1000
     }
     while (secs > 60) {
       mins++
@@ -46,7 +47,7 @@ export class StreamerDashboardComponent {
     }
     while (mins > 60) {
       hours++
-      mins -= 100
+      mins -= 60
     }
 
     return hours + ":" + mins + ":" + secs
