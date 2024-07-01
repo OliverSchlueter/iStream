@@ -46,6 +46,10 @@ header {
   cursor: pointer;
 }
 
+.header-right button:hover {
+  box-shadow: 0 0 15px 3px rgba(252, 115, 3, 0.73);
+}
+
 .ButtonGroup {
   display: flex;
   cursor: pointer;

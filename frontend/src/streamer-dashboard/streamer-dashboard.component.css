@@ -1,0 +1,14 @@
+.previewStream {
+  display: flex;
+  width: 80%;
+  height: 70%;
+  border-bottom: 1px solid #fc7303;
+  padding-bottom: 100%;
+}
+
+.fallbackImage {
+  margin-top: 10%;
+  margin-left: 10%;
+  width: 75%;
+  height: 380px;
+}
