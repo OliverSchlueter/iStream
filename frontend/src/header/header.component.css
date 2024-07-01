@@ -15,10 +15,9 @@ header {
 }
 
 .header-middle input{
-  border: white 1px solid;
-  border-radius: 8px;
+  border-radius: 8p+x;
   color: white;
-  background-color: transparent;
+  border-color: #fc7303;
   padding: 5px;
 }
 
@@ -41,15 +40,20 @@ header {
 }
 
 .header-right button {
-  border: white 1px solid;
-  border-radius: 8px;
-  color: #ffffff;
-  background-color: transparent;
-  padding: 6px 9px;
-  margin-right: 10px;
+  border-color: #fc7303;
+  color: white;
+  font-size: 14px;
   cursor: pointer;
 }
 
 .ButtonGroup {
   display: flex;
+  cursor: pointer;
+}
+.showUsername{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-left:2px;
+  margin-right: 20px;
 }

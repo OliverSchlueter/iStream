@@ -16,7 +16,7 @@
         <button routerLink='register' *ngIf="localStorage.getItem('username')===null">Registration</button>
         <button routerLink='streamerDashboard' *ngIf="localStorage.getItem('username')!==null">Stream now</button>
         <button (click)="logout()" *ngIf="localStorage.getItem('username')!==null">Logout</button>
-        <p>{{localStorage.getItem("username")}}</p>
+        <p class="showUsername">{{localStorage.getItem("username")}}</p>
     </div>
     </div>
 </header>
