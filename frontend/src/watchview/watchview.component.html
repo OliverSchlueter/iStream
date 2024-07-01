@@ -9,19 +9,23 @@
                     <img class="pic" src="https://www.uni-giessen.de/de/fbz/fb02/fb/professuren/bwl/BWL-IV/bilder/Dummy/@@images/image.jpeg">
                     <div class="name-titel">
                         <div class="streamer-name">{{user?.username}}</div>
-                        <div class="titel">{{streamConfig?.title}}</div>
+                        <div class="titel-cat">
+                            <div class="titel">{{streamConfig?.title}}Test11111111111</div>
+                            <div class="cat">in {{streamConfig?.category}}Kategorie</div>
+                        </div>
                     </div>
                 </div>
                 <div class="buttons-viewer">
+                    <img class="clock" src="/assets/clock.png"> 
                     <div class="live-since">{{calculateStreamTime(getLiveSinceMS())}}</div>
-                    <button class="follower">Follow</button>
                     <div class="eye-viewer">
                         <img class="eye" src="/assets/Eye.png">  
                         <div class="amountviewers">{{stream?.amountViewers}}</div>
                     </div>
+                    <button class="follower">Follow</button>
                 </div>
             </div>
-            <div class="beschreibung">{{streamConfig?.description}}</div>
+            <div class="beschreibung">{{streamConfig?.description}}Test11111111111111111111111111111111111111111111111111111111111111111</div>
         </div>
     </div>
     <div class="Chat">Chat here
