@@ -6,9 +6,9 @@
 
 <div class="config">
   <label>Title</label>
-  <input [(ngModel)]="title"><br/>
+  <input [(ngModel)]="streamconfig!.title"><br/>
   <label>Category</label>
-  <select [(ngModel)]="category">
+  <select [(ngModel)]="streamconfig!.category">
     <option value="MUSIC">Music</option>
     <option value="CASINO">Casino</option>
     <option value="HOT_TUB">HotTube</option>
@@ -25,7 +25,7 @@
     <option value="MOVIE">Movie</option>
   </select><br/>
   <label>Description</label>
-  <input [(ngModel)]="description"><br/>
+  <input [(ngModel)]="streamconfig!.description"><br/>
   <button (click)="safeConfig()">save</button>
   <button (click)="startStream()" *ngIf="stream==null">Start stream</button>
   <button (click)="stopStream()" *ngIf="stream!=null">Stop stream</button>
