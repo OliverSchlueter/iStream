@@ -112,10 +112,17 @@ export class StreamerDashboardComponent {
     if (!response.ok) {
       console.error("Error fetching stream")
     }
+
+    this.stopLivestream()
   }
 
   async startLiveStream() {
     await captureAndSend(`ws://localhost:7457/api/streams/${this.user?.id}/live?username=${this.user?.username}&password=${this.user?.password}`);
     await receiveData(document.getElementById('stream') as HTMLVideoElement, `ws://localhost:7457/api/streams/${this.user?.id}/live?username=${this.user?.username}&password=${this.user?.password}`);
+    location.reload()
+  }
+
+  async stopLivestream(){
+    location.reload()
   }
 }
