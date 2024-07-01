@@ -1,14 +1,22 @@
 .previewStream {
-  display: flex;
-  width: 80%;
-  height: 70%;
+  height: 550px;
+  width: 850px;
   border-bottom: 1px solid #fc7303;
-  padding-bottom: 100%;
 }
 
-.fallbackImage {
-  margin-top: 10%;
-  margin-left: 10%;
-  width: 75%;
-  height: 380px;
+.config{
+  padding: 5px;
+  margin-left: 10px;
+
+}
+
+.config button {
+border-color: #fc7303;
+color: white;
+font-size: 14px;
+cursor: pointer;
+}
+
+.config button:hover {
+  box-shadow: 0 0 15px 3px rgba(252, 115, 3, 0.73);
 }
