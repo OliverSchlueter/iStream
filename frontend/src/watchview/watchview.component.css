@@ -34,8 +34,8 @@
 .pic {
         height: 70px;
         width: 70px;
-        border-radius: 100%;
-        padding-left: 10px;
+        border-radius: 50%;
+        margin-left: 10px;
 }
 
 .info {
@@ -104,4 +104,8 @@
     padding-left: 97px;
     padding-right: 80px;
     
+}
+
+.live-since {
+    margin-top: 30px;
 }

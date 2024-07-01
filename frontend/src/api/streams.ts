@@ -60,3 +60,16 @@ export async function fetchStream(username: string): Promise<Stream | null> {
 
   return response.json();
 }
+
+export async function fetchStreamConfig(userid: string): Promise<StreamConfig | null> {
+  const response = await fetch("http://localhost:7457/api/stream-configs/" + userid, {
+    method: "GET"
+  })
+
+  if (!response.ok) {
+    console.error("Error fetching streamConfig")
+    return null;
+  }
+
+  return response.json();
+}

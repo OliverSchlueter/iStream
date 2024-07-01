@@ -8,19 +8,20 @@
                 <div class="pic-info">
                     <img class="pic" src="https://www.uni-giessen.de/de/fbz/fb02/fb/professuren/bwl/BWL-IV/bilder/Dummy/@@images/image.jpeg">
                     <div class="name-titel">
-                        <div class="streamer-name">Name</div>
-                        <div class="titel">Titel</div>
+                        <div class="streamer-name">{{user?.username}}</div>
+                        <div class="titel">{{streamConfig?.title}}</div>
                     </div>
                 </div>
                 <div class="buttons-viewer">
+                    <div class="live-since">{{calculateStreamTime(getLiveSinceMS())}}</div>
                     <button class="follower">Follow</button>
                     <div class="eye-viewer">
                         <img class="eye" src="/assets/Eye.png">  
-                        <div class="amountviewers">100</div>
+                        <div class="amountviewers">{{stream?.amountViewers}}</div>
                     </div>
                 </div>
             </div>
-            <div class="beschreibung">der dümmste streamer auf ganz twitch imagine subbing to papaplatte OMEGALUL so trash unlustig unkreativ nicht gut in video spielen, wer hier sein geld lässt ist einfach nur dämlich.</div>
+            <div class="beschreibung">{{streamConfig?.description}}</div>
         </div>
     </div>
     <div class="Chat">Chat here
