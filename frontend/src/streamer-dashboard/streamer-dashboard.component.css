@@ -1,13 +1,33 @@
+.page {
+display: flex;
+}
+
+.width {
+  width: calc(100vw - 850px);
+  height: 550px;
+}
+
+.config-preview {
+  border-right: 1px solid #fc7303;
+}
 .previewStream {
   height: 550px;
   width: 850px;
   border-bottom: 1px solid #fc7303;
 }
 
+.preview {
+  padding-left: 350px;
+}
+
+.video {
+  height: 550px;
+  width: 850px;
+}
+
 .config{
   padding: 5px;
   margin-left: 10px;
-
 }
 
 .config button {

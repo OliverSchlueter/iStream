@@ -1,35 +1,40 @@
-<div class="previewStream">
-  <p>Preview</p>
-  <video autoplay id="stream"></video>
+<div class="page">
+  <div class="config-preview">
+    <div class="previewStream">
+      <p class="preview">Preview:</p>
+      <video class="video" autoplay id="stream"></video>
   <!--Vorschau-->
-</div>
+    </div>
 
-<div class="config">
-  <label>Title</label>
-  <input [(ngModel)]="streamconfig!.title"><br/>
-  <label>Category</label>
-  <select [(ngModel)]="streamconfig!.category">
-    <option value="MUSIC">Music</option>
-    <option value="CASINO">Casino</option>
-    <option value="HOT_TUB">HotTube</option>
-    <option value="JUST_CHATTING">Just chatting</option>
-    <option value="SCIENCE_AND_TECHNOLOGY">Science & Technology</option>
-    <option value="SPORTS">Sports</option>
-    <option value="TRAVEL_AND_OUTDOORS">Travel & Outdoors</option>
-    <option value="TALK_SHOW">Talk show</option>
-    <option value="GAME">Game</option>
-    <option value="ART">Art</option>
-    <option value="FOOD_AND_DRINK">Food & Drink</option>
-    <option value="NEWS">News</option>
-    <option value="ANIME">Anime</option>
-    <option value="MOVIE">Movie</option>
-  </select><br/>
-  <label>Description</label>
-  <input [(ngModel)]="streamconfig!.description"><br/>
-  <button (click)="safeConfig()">save</button>
-  <button (click)="startStream()" *ngIf="stream==null">Start stream</button>
-  <button (click)="stopStream()" *ngIf="stream!=null">Stop stream</button>
-  <p>{{ user!.followers.length }}</p>
-  <p>{{ stream!.amountViewers }}</p>
-  <p>{{ calculateStreamTime(getLiveSinceMS()) }}</p>
+  <div class="config">
+    <label>Title</label>
+    <input [(ngModel)]="streamconfig!.title"><br/>
+    <label>Category</label>
+    <select [(ngModel)]="streamconfig!.category">
+      <option value="MUSIC">Music</option>
+      <option value="CASINO">Casino</option>
+      <option value="HOT_TUB">HotTube</option>
+      <option value="JUST_CHATTING">Just chatting</option>
+      <option value="SCIENCE_AND_TECHNOLOGY">Science & Technology</option>
+      <option value="SPORTS">Sports</option>
+      <option value="TRAVEL_AND_OUTDOORS">Travel & Outdoors</option>
+      <option value="TALK_SHOW">Talk show</option>
+      <option value="GAME">Game</option>
+      <option value="ART">Art</option>
+      <option value="FOOD_AND_DRINK">Food & Drink</option>
+      <option value="NEWS">News</option>
+      <option value="ANIME">Anime</option>
+      <option value="MOVIE">Movie</option>
+    </select><br/>
+    <label>Description</label>
+    <input [(ngModel)]="streamconfig!.description"><br/>
+    <button (click)="safeConfig()">save</button>
+    <button (click)="startStream()" *ngIf="stream==null">Start stream</button>
+    <button (click)="stopStream()" *ngIf="stream!=null">Stop stream</button>
+    <p>Follower: {{ user!.followers.length }}</p>
+    <p>Viewer: {{ stream!.amountViewers }}</p>
+    <p>Live since: {{ calculateStreamTime(getLiveSinceMS()) }}</p>
+  </div>
+</div>
+<div class="width"></div>
 </div>
