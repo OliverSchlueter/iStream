@@ -41,6 +41,12 @@ export class WatchviewComponent {
     );
 
     setInterval(()=>{
+      fetchStream(this.streamerId) .then((sc)=> {
+        this.stream = sc
+      })
+    },500)
+
+    setInterval(()=>{
       this.streamTime = this.calculateStreamTime(this.getLiveSinceMS())
     },100)
   }
