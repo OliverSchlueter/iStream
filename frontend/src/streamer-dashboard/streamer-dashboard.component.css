@@ -16,15 +16,6 @@ display: flex;
   border-bottom: 1px solid #fc7303;
 }
 
-.preview {
-  padding-left: 350px;
-}
-
-.video {
-  height: 550px;
-  width: 850px;
-}
-
 .config{
   padding: 5px;
   margin-left: 10px;
