@@ -4,6 +4,11 @@
   border-bottom: 1px solid #fc7303;
 }
 
+.stream{
+  height: 400px;
+  width: 700px;
+}
+
 .config{
   padding: 5px;
   margin-left: 10px;
