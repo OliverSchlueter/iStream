@@ -33,7 +33,7 @@ export async function captureAndSend(url: string): Promise<void> {
     }
 
     const mediaRecorder = new MediaRecorder(stream, {
-      mimeType: 'video/webm',
+      mimeType: 'video/webm; codecs=vp8',
     });
 
     // Uncomment for local video preview
