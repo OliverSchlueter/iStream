@@ -1,5 +1,5 @@
 .page {
-display: flex;
+  display: flex;
 }
 
 .width {
@@ -10,22 +10,32 @@ display: flex;
 .config-preview {
   border-right: 1px solid #fc7303;
 }
+
 .previewStream {
   height: 550px;
   width: 850px;
   border-bottom: 1px solid #fc7303;
 }
 
-.config{
+.preview {
+  padding-left: 350px;
+}
+
+.video {
+  height: 550px;
+  width: 850px;
+}
+
+.config {
   padding: 5px;
   margin-left: 10px;
 }
 
 .config button {
-border-color: #fc7303;
-color: white;
-font-size: 14px;
-cursor: pointer;
+  border-color: #fc7303;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
 }
 
 .config button:hover {
