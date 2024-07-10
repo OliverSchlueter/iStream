@@ -1,4 +1,4 @@
-import {Component, input} from '@angular/core';
+import {Component} from '@angular/core';
 import {FormsModule} from "@angular/forms";
 import {RouterLink} from "@angular/router";
 
@@ -20,7 +20,7 @@ export class RegistrationComponent {
 
   public async register() {
     console.log(this.mail, this.username, this.password, this.confirmPassword)
-    const response = await fetch("http://localhost:7457/api/users", {
+    const response = await fetch((window as any).iStreamBaseUrl + "/api/users", {
       method: "POST",
       body: JSON.stringify({
         username: this.username,
@@ -29,14 +29,14 @@ export class RegistrationComponent {
       })
     })
 
-    if (response.status === 201){
+    if (response.status === 201) {
       console.log("User is created")
       localStorage.setItem('username', this.username)
       localStorage.setItem('email', this.mail)
       localStorage.setItem('password', this.password)
       window.location.assign("/")
     } else {
-      console.error("Could not create user: "+ response.statusText)
+      console.error("Could not create user: " + response.statusText)
     }
   }
 }

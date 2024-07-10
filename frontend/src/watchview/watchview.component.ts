@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {receiveData} from "../api/livestream";
-import { Stream, StreamConfig, User, fetchStream, fetchStreamConfig, fetchUser } from '../api/streams';
+import {fetchStream, fetchStreamConfig, fetchUser, Stream, StreamConfig, User} from '../api/streams';
 
 @Component({
   selector: 'app-watchview',
@@ -26,13 +26,13 @@ export class WatchviewComponent {
         }
         console.log(event.data.streamer)
         this.streamerId = event.data.streamer.streamer
-        fetchStreamConfig(this.streamerId) .then((sc)=> {
+        fetchStreamConfig(this.streamerId).then((sc) => {
           this.streamConfig = sc
         })
-        fetchStream(this.streamerId) .then((sc)=> {
+        fetchStream(this.streamerId).then((sc) => {
           this.stream = sc
         })
-        fetchUser(this.streamerId) .then((sc)=> {
+        fetchUser(this.streamerId).then((sc) => {
           this.user = sc
         })
         this.watchLivestream()
@@ -40,19 +40,19 @@ export class WatchviewComponent {
       false,
     );
 
-    setInterval(()=>{
-      fetchStream(this.streamerId) .then((sc)=> {
+    setInterval(() => {
+      fetchStream(this.streamerId).then((sc) => {
         this.stream = sc
       })
-    },5000)
+    }, 5000)
 
-    setInterval(()=>{
+    setInterval(() => {
       this.streamTime = this.calculateStreamTime(this.getLiveSinceMS())
-    },100)
+    }, 100)
   }
 
   async watchLivestream() {
-    await receiveData(document.getElementById('stream') as HTMLVideoElement, `ws://localhost:7457/api/streams/${this.streamerId}/live`);
+    await receiveData(document.getElementById('stream') as HTMLVideoElement, (window as any).iStreamBaseUrlWS + `/api/streams/${this.streamerId}/live`);
     console.log("start")
   }
 

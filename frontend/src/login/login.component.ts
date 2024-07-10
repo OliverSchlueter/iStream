@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {FormsModule} from "@angular/forms";
 
 @Component({
@@ -14,9 +14,9 @@ export class LoginComponent {
   username: string = "";
   password: string = "";
 
-  public async login(){
+  public async login() {
     console.log(this.username, this.password)
-    const response = await fetch("http://localhost:7457/api/validate-user", {
+    const response = await fetch((window as any).iStreamBaseUrl + "/api/validate-user", {
       method: "GET",
       headers: {
         username: this.username,
@@ -24,13 +24,13 @@ export class LoginComponent {
       }
     })
 
-    if (response.status === 200){
+    if (response.status === 200) {
       console.log("You're logged into your account")
       localStorage.setItem('username', this.username)
       localStorage.setItem('password', this.password)
       window.location.assign("/")
     } else {
-      console.error("Invalid credentials: "+ response.statusText)
+      console.error("Invalid credentials: " + response.statusText)
     }
   }
 }

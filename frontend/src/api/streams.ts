@@ -1,15 +1,15 @@
 export interface Stream {
-    streamer: string,
-    liveSince: number,
-    amountViewers: number,
-    streamConfig: StreamConfig,
+  streamer: string,
+  liveSince: number,
+  amountViewers: number,
+  streamConfig: StreamConfig,
 }
 
 export interface StreamConfig {
-    userId: string,
-    title: string,
-    description: string,
-    category: string,
+  userId: string,
+  title: string,
+  description: string,
+  category: string,
 }
 
 export interface User {
@@ -23,20 +23,20 @@ export interface User {
 }
 
 export async function fetchOnlineStreamers(): Promise<Stream[] | null> {
-    const response = await fetch("http://localhost:7457/api/streams", {
-        method: "GET"
-    })
+  const response = await fetch((window as any).iStreamBaseUrl + "/api/streams", {
+    method: "GET"
+  })
 
-    if (!response.ok) {
-        console.error("Error fetching online streamers")
-        return null;
-    }
+  if (!response.ok) {
+    console.error("Error fetching online streamers")
+    return null;
+  }
 
-    return response.json();
+  return response.json();
 }
 
 export async function fetchUser(username: string): Promise<User | null> {
-  const response = await fetch("http://localhost:7457/api/users/" + username, {
+  const response = await fetch((window as any).iStreamBaseUrl + "/api/users/" + username, {
     method: "GET"
   })
 
@@ -49,7 +49,7 @@ export async function fetchUser(username: string): Promise<User | null> {
 }
 
 export async function fetchStream(username: string): Promise<Stream | null> {
-  const response = await fetch("http://localhost:7457/api/streams/" + username, {
+  const response = await fetch((window as any).iStreamBaseUrl + "/api/streams/" + username, {
     method: "GET"
   })
 
@@ -62,7 +62,7 @@ export async function fetchStream(username: string): Promise<Stream | null> {
 }
 
 export async function fetchStreamConfig(userid: string): Promise<StreamConfig | null> {
-  const response = await fetch("http://localhost:7457/api/stream-configs/" + userid, {
+  const response = await fetch((window as any).iStreamBaseUrl + "/api/stream-configs/" + userid, {
     method: "GET"
   })
 
