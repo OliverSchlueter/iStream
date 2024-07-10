@@ -68,7 +68,7 @@ public class HttpServer {
                 try {
                     System.out.println("Serving frontend from " + frontendFolder.getFile());
                 } catch (IOException e) {
-                    
+
                 }
             }
 
@@ -144,6 +144,7 @@ public class HttpServer {
                     get("/register", this::frontendRedirect);
                     get("/login", this::frontendRedirect);
                     get("/watchview", this::frontendRedirect);
+                    get("/streamerDashboard", this::frontendRedirect);
                 });
             });
         });
