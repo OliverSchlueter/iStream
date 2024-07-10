@@ -4,10 +4,22 @@
   <meta charset="utf-8">
   <title>iStream</title>
   <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <link href="favicon.ico" rel="icon" type="image/x-icon">
+  <script>
+    // prod
+    const iStreamBaseUrl = 'https://istream.schlueter-oliver.de';
+    const iStreamBaseUrlWS = 'wss://istream.schlueter-oliver.de';
+
+    // local
+    // const iStreamBaseUrl = 'http://localhost:7457';
+    // const iStreamBaseUrlWS = 'ws://localhost:7457';
+
+    window.iStreamBaseUrl = iStreamBaseUrl;
+    window.iStreamBaseUrlWS = iStreamBaseUrlWS;
+  </script>
 </head>
 <body>
-  <app-root></app-root>
+<app-root></app-root>
 </body>
 </html>

@@ -58,7 +58,7 @@ export class StreamerDashboardComponent {
   }
 
   public async safeConfig() {
-    const response = await fetch("http://localhost:7457/api/stream-configs/" + this.user?.id, {
+    const response = await fetch((window as any).iStreamBaseUrl + "/api/stream-configs/" + this.user?.id, {
       method: "PATCH",
       body: JSON.stringify({
         title: this.streamconfig?.title,
@@ -80,7 +80,7 @@ export class StreamerDashboardComponent {
   }
 
   public async startStream() {
-    const response = await fetch("http://localhost:7457/api/streams/", {
+    const response = await fetch((window as any).iStreamBaseUrl + "/api/streams/", {
       method: "POST",
       body: JSON.stringify({
         streamer: this.user?.id
@@ -101,7 +101,7 @@ export class StreamerDashboardComponent {
   }
 
   public async stopStream() {
-    const response = await fetch("http://localhost:7457/api/streams/" + this.user?.id, {
+    const response = await fetch((window as any).iStreamBaseUrl + "/api/streams/" + this.user?.id, {
       method: "DELETE",
       body: JSON.stringify({
         streamer: this.user?.id
@@ -120,8 +120,8 @@ export class StreamerDashboardComponent {
   }
 
   async startLiveStream() {
-    await captureAndSend(`ws://localhost:7457/api/streams/${this.user?.id}/live?username=${this.user?.username}&password=${this.user?.password}`);
-    await receiveData(document.getElementById('stream') as HTMLVideoElement, `ws://localhost:7457/api/streams/${this.user?.id}/live?username=${this.user?.username}&password=${this.user?.password}`);
+    await captureAndSend((window as any).iStreamBaseUrlWS + `/api/streams/${this.user?.id}/live?username=${this.user?.username}&password=${this.user?.password}`);
+    await receiveData(document.getElementById('stream') as HTMLVideoElement, (window as any).iStreamBaseUrlWS + `/api/streams/${this.user?.id}/live?username=${this.user?.username}&password=${this.user?.password}`);
   }
 
   async stopLivestream() {
