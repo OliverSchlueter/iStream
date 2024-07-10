@@ -1,5 +1,6 @@
 export interface Stream {
     streamer: string,
+    streamerName?: string,
     liveSince: number,
     amountViewers: number,
     streamConfig: StreamConfig,
