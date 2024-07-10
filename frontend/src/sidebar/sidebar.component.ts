@@ -1,7 +1,7 @@
 import {RouterLink} from "@angular/router";
 import { Component } from '@angular/core';
 import {NgFor, NgForOf} from "@angular/common";
-import { Stream, fetchOnlineStreamers } from "../api/streams";
+import { Stream, fetchOnlineStreamers, fetchUser } from "../api/streams";
 
 
 @Component({
@@ -24,6 +24,14 @@ export class SidebarComponent {
   constructor() {
     fetchOnlineStreamers().then((streamers) => {
         this.streamer = streamers;
+
+        for (const s of streamers!) {
+          fetchUser(s.streamer).then((user) => {
+            if (user) {
+              s.streamerName = user.username;
+            }
+          });
+        }
     });
 }
 

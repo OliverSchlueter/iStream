@@ -1,8 +1,9 @@
 export interface Stream {
-  streamer: string,
-  liveSince: number,
-  amountViewers: number,
-  streamConfig: StreamConfig,
+    streamer: string,
+    streamerName?: string,
+    liveSince: number,
+    amountViewers: number,
+    streamConfig: StreamConfig,
 }
 
 export interface StreamConfig {
