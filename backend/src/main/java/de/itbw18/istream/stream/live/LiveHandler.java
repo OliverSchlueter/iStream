@@ -78,7 +78,7 @@ public class LiveHandler extends WebsocketHandler {
             return;
         }
 
-        List<Session> streamSessions = sessions.getOrDefault(streamId, new ArrayList<>());
+        List<Session> streamSessions = new ArrayList<>(sessions.getOrDefault(streamId, new ArrayList<>(0)));
         for (Session session : streamSessions) {
             if (session == null || !session.isOpen()) {
                 continue;
