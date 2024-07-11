@@ -22,7 +22,7 @@
 }
 
 .video {
-  height: 550px;
+  height: 513px;
   width: 850px;
 }
 
@@ -41,3 +41,4 @@
 .config button:hover {
   box-shadow: 0 0 15px 3px rgba(252, 115, 3, 0.73);
 }
+
